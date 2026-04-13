@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>茨城グルメよっしー 店舗検索ツール</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+      background: #f5f5f5;
+      color: #333;
+      min-height: 100vh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      color: white;
+      padding: 24px 20px 20px;
+      text-align: center;
+    }
+    header .ig-icon { font-size: 2rem; margin-bottom: 4px; }
+    header h1 { font-size: 1.4rem; font-weight: 700; margin-bottom: 4px; }
+    header p { font-size: 0.85rem; opacity: 0.9; }
+    header a.ig-link {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      text-decoration: none;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.82rem;
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: background 0.2s;
+    }
+    header a.ig-link:hover { background: rgba(255,255,255,0.35); }
+
+    /* ===== SEARCH AREA ===== */
+    .search-wrap {
+      background: white;
+      padding: 16px 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .search-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .search-row input[type="text"] {
+      flex: 1 1 200px;
+      padding: 10px 14px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .search-row input[type="text"]:focus { border-color: #dc2743; }
+    .search-row select {
+      flex: 1 1 130px;
+      padding: 10px 10px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      background: white;
+      outline: none;
+      cursor: pointer;
+    }
+    .search-row select:focus { border-color: #dc2743; }
+    .btn-reset {
+      padding: 10px 18px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      color: #666;
+      cursor: pointer;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    .btn-reset:hover { background: #f0f0f0; }
+
+    /* ===== MAIN ===== */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 16px 16px 40px;
+    }
+
+    .result-info {
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .result-info span b { color: #dc2743; }
+
+    .city-chips {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 14px;
+    }
+    .city-chip {
+      padding: 5px 12px;
+      border-radius: 20px;
+      background: white;
+      border: 1.5px solid #ddd;
+      font-size: 0.82rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .city-chip:hover { border-color: #dc2743; color: #dc2743; }
+    .city-chip.active {
+      background: linear-gradient(135deg, #dc2743, #bc1888);
+      color: white;
+      border-color: transparent;
+    }
+    .city-chip .cnt {
+      background: rgba(0,0,0,0.12);
+      border-radius: 10px;
+      padding: 0 5px;
+      font-size: 0.75rem;
+      margin-left: 3px;
+    }
+    .city-chip.active .cnt { background: rgba(255,255,255,0.25); }
+
+    /* ===== CARDS ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .card:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,0.13); }
+
+    .card-top {
+      background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+      padding: 14px 16px 12px;
+      color: white;
+    }
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .card-genre {
+      display: inline-block;
+      background: rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+    }
+
+    .card-body {
+      padding: 12px 16px 14px;
+    }
+    .card-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      margin-bottom: 7px;
+      font-size: 0.88rem;
+    }
+    .card-row .icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+    .card-row .text { color: #555; line-height: 1.45; }
+    .card-row .city-tag {
+      display: inline-block;
+      background: #fff0f3;
+      color: #dc2743;
+      border: 1px solid #ffd0d8;
+      border-radius: 6px;
+      padding: 1px 8px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    .card-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 10px;
+      padding: 9px;
+      background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: opacity 0.2s;
+    }
+    .card-link:hover { opacity: 0.88; }
+
+    .no-results {
+      text-align: center;
+      padding: 60px 20px;
+      color: #aaa;
+      font-size: 1rem;
+    }
+    .no-results .emoji { font-size: 2.5rem; margin-bottom: 10px; }
+
+    /* ===== ADD / CSV SECTION ===== */
+    .section-toggle {
+      margin-bottom: 14px;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn-toggle {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1.5px solid #dc2743;
+      background: white;
+      color: #dc2743;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .btn-toggle:hover, .btn-toggle.active {
+      background: #dc2743;
+      color: white;
+    }
+
+    .panel {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      padding: 20px;
+      margin-bottom: 20px;
+      display: none;
+    }
+    .panel.open { display: block; }
+    .panel h3 { font-size: 1rem; margin-bottom: 14px; color: #444; }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-grid input, .form-grid select {
+      width: 100%;
+      padding: 9px 12px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      outline: none;
+    }
+    .form-grid input:focus, .form-grid select:focus { border-color: #dc2743; }
+    .form-full { grid-column: 1 / -1; }
+    .btn-add {
+      width: 100%;
+      padding: 11px;
+      background: linear-gradient(135deg, #dc2743, #bc1888);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .btn-add:hover { opacity: 0.88; }
+
+    .csv-area textarea {
+      width: 100%;
+      height: 100px;
+      border: 1.5px solid #ddd;
+      border-radius: 8px;
+      padding: 10px;
+      font-size: 0.82rem;
+      font-family: monospace;
+      resize: vertical;
+      margin-bottom: 8px;
+    }
+    .csv-format { font-size: 0.8rem; color: #999; margin-bottom: 10px; }
+    .csv-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+    .btn-csv {
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: 1.5px solid #ddd;
+      background: white;
+      color: #555;
+      cursor: pointer;
+      font-size: 0.88rem;
+      transition: all 0.2s;
+    }
+    .btn-csv:hover { background: #f0f0f0; }
+    .btn-csv.primary {
+      background: #333;
+      color: white;
+      border-color: #333;
+    }
+    .btn-csv.primary:hover { background: #555; }
+
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 9999;
+    }
+    .toast.show { opacity: 1; }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.2rem; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="ig-icon">📸</div>
+  <h1>茨城グルメよっしー 店舗検索</h1>
+  <p>茨城県内の美味しいグルメ情報をまとめて検索</p>
+  <a class="ig-link" href="https://www.instagram.com/ibaraki_yossy/" target="_blank" rel="noopener">
+    📷 @ibaraki_yossy をフォロー
+  </a>
+</header>
+
+<div class="search-wrap">
+  <div class="search-row">
+    <input type="text" id="q" placeholder="🔍 店名・住所で検索..." oninput="render()">
+    <select id="cityFilter" onchange="render()">
+      <option value="">📍 市町村 すべて</option>
+    </select>
+    <select id="genreFilter" onchange="render()">
+      <option value="">🍽 ジャンル すべて</option>
+    </select>
+    <button class="btn-reset" onclick="resetFilters()">✕ リセット</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="city-chips" id="cityChips"></div>
+
+  <div class="result-info">
+    <span id="count"></span>
+    <div class="section-toggle">
+      <button class="btn-toggle" onclick="togglePanel('addPanel', this)">＋ 店舗を追加</button>
+      <button class="btn-toggle" onclick="togglePanel('csvPanel', this)">📋 CSV インポート/エクスポート</button>
+    </div>
+  </div>
+
+  <!-- ADD PANEL -->
+  <div class="panel" id="addPanel">
+    <h3>📝 新しい店舗を追加</h3>
+    <div class="form-grid">
+      <input type="text" id="f_name" placeholder="店名 *">
+      <input type="text" id="f_city" placeholder="市町村（例：水戸市）*">
+      <input type="text" id="f_genre" placeholder="ジャンル（例：カフェ）*">
+      <input type="text" id="f_address" placeholder="住所">
+      <input type="url" id="f_link" placeholder="Instagramリンク" class="form-full">
+    </div>
+    <button class="btn-add" onclick="addStore()">追加する</button>
+  </div>
+
+  <!-- CSV PANEL -->
+  <div class="panel" id="csvPanel">
+    <h3>📋 CSV インポート / エクスポート</h3>
+    <p class="csv-format">形式：店名,市町村,ジャンル,住所,Instagramリンク（1行目はヘッダー行）</p>
+    <div class="csv-area">
+      <textarea id="csvText" placeholder="CSVデータをここに貼り付け..."></textarea>
+    </div>
+    <div class="csv-btns">
+      <button class="btn-csv primary" onclick="importCSV()">📥 CSVをインポート</button>
+      <button class="btn-csv" onclick="exportCSV()">📤 CSVをエクスポート</button>
+      <button class="btn-csv" onclick="showCSVTemplate()">📄 テンプレートを表示</button>
+    </div>
+  </div>
+
+  <div class="grid" id="grid"></div>
+  <div class="no-results" id="noResults" style="display:none">
+    <div class="emoji">🔍</div>
+    <div>該当する店舗が見つかりませんでした</div>
+    <div style="font-size:0.82rem;margin-top:6px;color:#bbb">検索条件を変えてみてください</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// =====================================================
+// 初期データ（ibaraki_yossyアカウントの投稿より収集）
+// =====================================================
+const DEFAULT_STORES = [
+  {name:"おみたまキッチン",city:"小美玉市",genre:"パスタ・イタリアン",address:"茨城県小美玉市山野１６２８−４４",link:"https://www.instagram.com/p/DXBn_1Qk9kF/"},
+  {name:"OwL 日本茶専門店&和カフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市二の宮２丁目14−16",link:"https://www.instagram.com/p/DW_Kc1hE5O0/"},
+  {name:"甘味 ema",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市末広町３丁目２−３５",link:"https://www.instagram.com/p/DW8etBmk03e/"},
+  {name:"麺屋 い志だ",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市中高津１丁目１５−２１",link:"https://www.instagram.com/p/DW56_3Kkw2E/"},
+  {name:"あさいカフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市今鹿島４０１５",link:"https://www.instagram.com/p/DW3YGTzk16S/"},
+  {name:"ほうずき丸",city:"つくば市",genre:"うどん",address:"茨城県つくば市館野５−１",link:"https://www.instagram.com/p/DW0yzl1k0-s/"},
+  {name:"sois",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町本郷３丁目2−１３",link:"https://www.instagram.com/p/DWyLSKokyQi/"},
+  {name:"PANDA MARKET",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市笠原町９７８−６ 茨城県庁 25階 展望ロビー",link:"https://www.instagram.com/p/DWvkOOtEziO/"},
+  {name:"プリズム",city:"つくばみらい市",genre:"カフェ",address:"茨城県つくばみらい市富士見ヶ丘１丁目１３−１７",link:"https://www.instagram.com/p/DWtE_T5k3HB/"},
+  {name:"釜焼きチャーシュー らーめん喜楽",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市中央３丁目１６−１",link:"https://www.instagram.com/p/DWqdd_XD2g6/"},
+  {name:"トロッポドーナツ",city:"つくば市",genre:"ドーナツ",address:"茨城県つくば市学園の森３丁目４４",link:"https://www.instagram.com/p/DWn7lAKk0Lw/"},
+  {name:"茨城豚そば 特龍 本店",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町阿見６００",link:"https://www.instagram.com/p/DWlSj94kx4y/"},
+  {name:"イロイロパンヤ 穂穂穂 -HOHOHO-",city:"水戸市",genre:"パン",address:"茨城県水戸市堀町１１８８ 1PatioM106",link:"https://www.instagram.com/p/DWitCSvE-OF/"},
+  {name:"どうとんぼり神座 イーアスつくば店",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市研究学園５丁目１９",link:"https://www.instagram.com/p/DWgJ4Ohk2qq/"},
+  {name:"天ぷら 佐和屋",city:"龍ケ崎市",genre:"天ぷら",address:"茨城県龍ケ崎市久保台１丁目7−１",link:"https://www.instagram.com/p/DWdjazOE73D/"},
+  {name:"蔵出し焼き芋 かいつか AEON土浦店",city:"土浦市",genre:"スイーツ",address:"茨城県土浦市上高津３６７ イオンモール土浦1F",link:"https://www.instagram.com/p/DWa8A7Hk0Kv/"},
+  {name:"Les Epices エピス",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市笠原町１０５１−２",link:"https://www.instagram.com/p/DWYaRz8E7sQ/"},
+  {name:"そば すぎもと",city:"つくばみらい市",genre:"そば",address:"茨城県つくばみらい市陽光台４丁目１３−２",link:"https://www.instagram.com/p/DWV1MeVE94S/"},
+  {name:"らぁめん ゑびすや",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市春日４丁目２６−１",link:"https://www.instagram.com/p/DWTRTcCEwiC/"},
+  {name:"コーチャンフォー つくば店",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市学園の森３丁目５０−７",link:"https://www.instagram.com/p/DWQuiDCEwRE/"},
+  {name:"Curry & Bake",city:"水戸市",genre:"カレー",address:"茨城県水戸市堀町２１１１−２",link:"https://www.instagram.com/p/DWOJXRGkxrT/"},
+  {name:"コンビニエンスラビット",city:"神栖市",genre:"クレープ",address:"茨城県神栖市大野原７丁目７−８７",link:"https://www.instagram.com/p/DWLq6dvEzjG/"},
+  {name:"菓心 松屋",city:"行方市",genre:"和菓子",address:"茨城県行方市山田３０１０−５",link:"https://www.instagram.com/p/DWJBSgIExf6/"},
+  {name:"ラ・プロヴァンス",city:"鉾田市",genre:"洋菓子",address:"茨城県鉾田市塔ケ崎１０１７−１",link:"https://www.instagram.com/p/DWGdHHHk37U/"},
+  {name:"らぁーめん滿帆家",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市ひたち野東３丁目1−３",link:"https://www.instagram.com/p/DV-vr6Ak3YS/"},
+  {name:"手打ち蕎麦山ざき",city:"龍ケ崎市",genre:"そば",address:"茨城県龍ケ崎市姫宮町253-1",link:"https://www.instagram.com/p/DV8JS78k-2s/"},
+  {name:"韓国料理 炭火焼肉 ハンアリ",city:"つくば市",genre:"韓国料理",address:"茨城県つくば市妻木2100ー7",link:"https://www.instagram.com/p/DV5kte-E6p-/"},
+  {name:"雪達磨 -スープ専門店-",city:"石岡市",genre:"スープ",address:"茨城県石岡市大砂１０３８３−４８",link:"https://www.instagram.com/p/DV224k3kwMj/"},
+  {name:"パン工房あいちゃんち",city:"小美玉市",genre:"パン",address:"茨城県小美玉市中延556−1",link:"https://www.instagram.com/p/DV0fd-HE2aq/"},
+  {name:"ガトー・プーリア",city:"つくば市",genre:"スイーツ・ケーキ",address:"茨城県つくば市水堀５８７−５４",link:"https://www.instagram.com/p/DVx5k5jE-NM/"},
+  {name:"桜坂テラス",city:"稲敷郡阿見町",genre:"カレー",address:"茨城県稲敷郡阿見町青宿３６８−２",link:"https://www.instagram.com/p/DVvTy20EzGp/"},
+  {name:"味噌ラーメン山岡家 阿見店",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町西郷３丁目1−７",link:"https://www.instagram.com/p/DVsrGdDkz98/"},
+  {name:"プレゴ",city:"土浦市",genre:"スープ",address:"茨城県土浦市小岩田西１丁目１−１１",link:"https://www.instagram.com/p/DVqIeldk3e4/"},
+  {name:"ピタマックスのケバブ",city:"神栖市",genre:"グルメ",address:"茨城県神栖市大野原５丁目５",link:"https://www.instagram.com/p/DVniHEtExgq/"},
+  {name:"のっぽ",city:"神栖市",genre:"パスタ・イタリアン",address:"茨城県神栖市太田３１２５−３",link:"https://www.instagram.com/p/DVk8pp8kwYz/"},
+  {name:"鮪たけもと",city:"水戸市",genre:"寿司",address:"茨城県水戸市米沢町600−3",link:"https://www.instagram.com/p/DViVr9pkwxB/"},
+  {name:"アヌエヌエ・ポノ",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市東赤塚2112",link:"https://www.instagram.com/p/DVfwsRUEyys/"},
+  {name:"諸川商店",city:"東茨城郡茨城町",genre:"スイーツ",address:"茨城県東茨城郡茨城町駒場２２０",link:"https://www.instagram.com/p/DVdaFRJkylS/"},
+  {name:"ハムたい",city:"水戸市",genre:"グルメ",address:"茨城県水戸市桜川2-4-35",link:"https://www.instagram.com/p/DVaq_XZk5iV/"},
+  {name:"カルケット",city:"稲敷郡阿見町",genre:"グルメ",address:"茨城県稲敷郡阿見町中央３丁目３−１０",link:"https://www.instagram.com/p/DVYEdF5k5-r/"},
+  {name:"うさぎの団子屋さん でん福",city:"稲敷市",genre:"グルメ",address:"茨城県稲敷市曲渕3",link:"https://www.instagram.com/p/DVVfztlkwkd/"},
+  {name:"沼田屋本店",city:"つくば市",genre:"グルメ",address:"茨城県つくば市沼田１４００",link:"https://www.instagram.com/p/DVS627Ok0vt/"},
+  {name:"BENCH",city:"つくば市",genre:"パン",address:"茨城県つくば市面野井８７０−１",link:"https://www.instagram.com/p/DVQVUJ3k3Sf/"},
+  {name:"パティスリーKOSAI",city:"水戸市",genre:"洋菓子",address:"茨城県水戸市元吉田町２２３８−６",link:"https://www.instagram.com/p/DVNwGVGkyPF/"},
+  {name:"ラーメンショップ◯化 つくば店",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市妻木１７６６−２",link:"https://www.instagram.com/p/DVLLVHPE59U/"},
+  {name:"たいやき君",city:"龍ケ崎市",genre:"和菓子",address:"茨城県龍ケ崎市寺後３５５８−１ 1",link:"https://www.instagram.com/p/DVIrag7E15H/"},
+  {name:"オールマイグッドバーガー",city:"稲敷郡阿見町",genre:"ハンバーガー",address:"茨城県稲敷郡阿見町青宿４２５−６",link:"https://www.instagram.com/p/DVGEXPSE6Tk/"},
+  {name:"芋久",city:"牛久市",genre:"スイーツ",address:"茨城県牛久市猪子町８０１−２０",link:"https://www.instagram.com/p/DVDdXe1EaLN/"},
+  {name:"つくば食堂 花",city:"つくば市",genre:"定食",address:"茨城県つくば市上野７００−５",link:"https://www.instagram.com/p/DUsVGXSk-np/"},
+  {name:"しふぉん工房Ohana",city:"稲敷市",genre:"スイーツ・ケーキ",address:"茨城県稲敷市角崎１６０６−２９",link:"https://www.instagram.com/p/DUptz0Tk5xc/"},
+  {name:"やきいもアミナ",city:"かすみがうら市",genre:"スイーツ",address:"茨城県かすみがうら市稲吉２丁目５−１１",link:"https://www.instagram.com/p/DUkj231E7Fh/"},
+  {name:"ミルリトン",city:"土浦市",genre:"スイーツ・ケーキ",address:"茨城県土浦市中高津２丁目４−１３",link:"https://www.instagram.com/p/DUiO4c8k7x0/"},
+  {name:"麺屋壱心",city:"龍ケ崎市",genre:"ラーメン",address:"茨城県龍ケ崎市南中島町６８−１２",link:"https://www.instagram.com/p/DUfYXPoE84v/"},
+  {name:"古民家cafeななかまど",city:"小美玉市",genre:"カフェ",address:"茨城県小美玉市羽鳥1538",link:"https://www.instagram.com/p/DUc1ApuE9uh/"},
+  {name:"＆SHEEP（アンドシープ）",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市桜２丁目39−１",link:"https://www.instagram.com/p/DUSnlOYkwx7/"},
+  {name:"中華そば 春ちゃん",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市北条５０４３−８",link:"https://www.instagram.com/p/DUP-QbPE-K3/"},
+  {name:"おおきや 大阪ソウルフード 粉と肉とだし",city:"つくば市",genre:"たこ焼き",address:"茨城県つくば市上横場２３６５−８",link:"https://www.instagram.com/p/DUNbnkgE2HV/"},
+  {name:"海鮮食事処 いしざき",city:"小美玉市",genre:"海鮮",address:"茨城県小美玉市中延５９５−１",link:"https://www.instagram.com/p/DUK5ifrE6oq/"},
+  {name:"YtoI わいとあい",city:"石岡市",genre:"ドーナツ",address:"茨城県石岡市茨城１丁目４−３５",link:"https://www.instagram.com/p/DUITQikE8hw/"},
+  {name:"つくば星空カフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市吉瀬１７３４−１",link:"https://www.instagram.com/p/DUFqfRtk_aA/"},
+  {name:"お惣菜カノン",city:"守谷市",genre:"定食",address:"茨城県守谷市百合ケ丘３丁目２７８５−１",link:"https://www.instagram.com/p/DTfDinRE-Kq/"},
+  {name:"GESELLE",city:"守谷市",genre:"パン",address:"茨城県守谷市中央２丁目５３",link:"https://www.instagram.com/p/DTceIHBExPJ/"},
+  {name:"明宣庵",city:"坂東市",genre:"和食",address:"茨城県坂東市上出島885-1",link:"https://www.instagram.com/p/DTZ47Hvk34n/"},
+  {name:"やっこ凧",city:"守谷市",genre:"たこ焼き",address:"茨城県守谷市高野５０２４",link:"https://www.instagram.com/p/DTXS9DPExps/"},
+  {name:"いちご家のむのむ",city:"石岡市",genre:"スイーツ",address:"茨城県石岡市小幡１４１６",link:"https://www.instagram.com/p/DTUuECkEz9j/"},
+  {name:"自家製麺つけそば九六",city:"つくばみらい市",genre:"そば",address:"茨城県つくばみらい市絹の台２丁目14−３",link:"https://www.instagram.com/p/DTNDoFEE-hA/"},
+  {name:"こおひいはうす らんぷ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市天久保３丁目１０−１７",link:"https://www.instagram.com/p/DTKf28VEwl-/"},
+  {name:"たこやきや&Co.",city:"稲敷市",genre:"たこ焼き",address:"茨城県稲敷市犬塚１６１７−５",link:"https://www.instagram.com/p/DTFRjgxEwMQ/"},
+  {name:"蔵日和",city:"つくば市",genre:"カフェ",address:"茨城県つくば市金田３８−１",link:"https://www.instagram.com/p/DU7w3Nzk-2p/"},
+  {name:"麺屋京介",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市大畑８３７−１",link:"https://www.instagram.com/p/DU5Lc0Kk7sL/"},
+  {name:"焼き芋専門店 芋やす",city:"土浦市",genre:"スイーツ",address:"茨城県土浦市沖新田１",link:"https://www.instagram.com/p/DU0CgGPE73-/"},
+  {name:"鮨あさの",city:"常総市",genre:"寿司",address:"茨城県常総市小保川１４５６−１",link:"https://www.instagram.com/p/DUxa89fE9ix/"},
+  {name:"おぼろ豆富・湯波専門店まめ乃家",city:"つくば市",genre:"定食",address:"茨城県つくば市手代木９６１−９",link:"https://www.instagram.com/p/DUu3Y49k4Am/"},
+  {name:"峠のクマタコ",city:"潮来市",genre:"たこ焼き",address:"茨城県潮来市築地５３２",link:"https://www.instagram.com/p/DT4xGygkw0G/"},
+  {name:"らぽっぽなめがたファーマーズヴィレッジ",city:"行方市",genre:"スイーツ",address:"茨城県行方市宇崎１５６１",link:"https://www.instagram.com/p/DT2LG06E5V9/"},
+  {name:"りんちゃんのおやつ",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市手代木２００５−３",link:"https://www.instagram.com/p/DTxDizDkwmB/"},
+  {name:"冨久長",city:"水戸市",genre:"和食",address:"茨城県水戸市城東２丁目６−１１",link:"https://www.instagram.com/p/DTv6HJXE7Zr/"},
+  {name:"さんぴ",city:"つくばみらい市",genre:"海鮮",address:"茨城県つくばみらい市絹の台２丁目4−8",link:"https://www.instagram.com/p/DSPOV0rEyO5/"},
+  {name:"ミオジェラート",city:"守谷市",genre:"アイスクリーム",address:"茨城県守谷市大柏１１２５−７",link:"https://www.instagram.com/p/DSMqUi-k_7t/"},
+  {name:"かさまとチョコレート工場",city:"笠間市",genre:"スイーツ",address:"茨城県笠間市笠間984-1",link:"https://www.instagram.com/p/DSLpEKNk2kw/"},
+  {name:"鳥の海 つくば店",city:"つくば市",genre:"ビュッフェ・食べ放題",address:"茨城県つくば市研究学園４丁目2−１４",link:"https://www.instagram.com/p/DSKJR-5kzrp/"},
+  {name:"だしとおうどん まつしん",city:"守谷市",genre:"うどん",address:"茨城県守谷市板戸井２１９５−１１",link:"https://www.instagram.com/p/DSE4Sx1E6NK/"},
+  {name:"伊勢屋",city:"取手市",genre:"ラーメン",address:"茨城県取手市新町５丁目１８−１３",link:"https://www.instagram.com/p/DSCVoyhk2sB/"},
+  {name:"鶏々",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市天久保２丁目8−1",link:"https://www.instagram.com/p/DS_yuHjk3Ax/"},
+  {name:"麺屋 隆志",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市中村西根２１４０−７",link:"https://www.instagram.com/p/DSUWbjsk09d/"},
+  {name:"お菓子の店 メープル",city:"守谷市",genre:"洋菓子",address:"茨城県守谷市松前台1丁目16−４",link:"https://www.instagram.com/p/DSRy22KE1tV/"},
+  {name:"うおやす",city:"石岡市",genre:"天ぷら",address:"茨城県石岡市旭台３丁目４−６",link:"https://www.instagram.com/p/DSo9Henk6Yu/"},
+  {name:"石窯パン工房 カンパーニュ",city:"水戸市",genre:"パン",address:"茨城県水戸市河和田町３７１７−３",link:"https://www.instagram.com/p/DSmbj6Pk0Wb/"},
+  {name:"ラ・ブランジェ・サニー",city:"水戸市",genre:"パン",address:"茨城県水戸市米沢町364−７",link:"https://www.instagram.com/p/DSjzRbUE4S-/"},
+  {name:"コーチャンフォーつくば店",city:"つくば市",genre:"アイスクリーム",address:"茨城県つくば市学園の森３丁目５０−７",link:"https://www.instagram.com/p/DShVWeIE6lX/"},
+  {name:"魚料理ひろせ",city:"つくば市",genre:"海鮮",address:"茨城県つくば市上郷６８６０",link:"https://www.instagram.com/p/DSgOuGCkxkd/"},
+  {name:"納豆DOG",city:"笠間市",genre:"グルメ",address:"茨城県笠間市長兎路１０５１−３",link:"https://www.instagram.com/p/DSetZfPE8-u/"},
+  {name:"はっこめ〜発酵とお米のお店",city:"つくば市",genre:"カフェ",address:"茨城県つくば市流星台１７−１ 1F",link:"https://www.instagram.com/p/DSdsdFIk18f/"},
+  {name:"友部あんこう焼き",city:"笠間市",genre:"和菓子",address:"茨城県笠間市長兎路１０５１−３ 常磐自動車道下り線友部SA内",link:"https://www.instagram.com/p/DSbYQ6CkrVm/"},
+  {name:"大判焼き不動",city:"稲敷郡阿見町",genre:"和菓子",address:"茨城県稲敷郡阿見町吉原578-1",link:"https://www.instagram.com/p/DR8JKlFkxh8/"},
+  {name:"中華そば すずきや",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市上横場2431-5",link:"https://www.instagram.com/p/DR5ocZmExL_/"},
+  {name:"ミヤタクレープ",city:"土浦市",genre:"クレープ",address:"茨城県土浦市中荒川沖町２４−４５",link:"https://www.instagram.com/p/DR1fY2rE8S8/"},
+  {name:"こころを米で結ぶ 結",city:"つくばみらい市",genre:"定食",address:"茨城県つくばみらい市富士見ヶ丘１丁目28番１",link:"https://www.instagram.com/p/DRy6GFuEz_D/"},
+  {name:"SWEETS MARCHE",city:"つくばみらい市",genre:"スイーツ・ケーキ",address:"茨城県つくばみらい市富士見ヶ丘１丁目28番１",link:"https://www.instagram.com/p/DRwRdkKE9Ar/"},
+  {name:"LQPizza",city:"つくばみらい市",genre:"ピザ",address:"茨城県つくばみらい市富士見ヶ丘１丁目28",link:"https://www.instagram.com/p/DRug4TkEyvO/"},
+  {name:"焼き芋 ここの日",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市見和１丁目350",link:"https://www.instagram.com/p/DRMTtmRk-gP/"},
+  {name:"HARUHI",city:"稲敷郡阿見町",genre:"うどん",address:"茨城県稲敷郡阿見町うずら野1丁目10−21",link:"https://www.instagram.com/p/DRJuepwE6s-/"},
+  {name:"ええもん8",city:"水戸市",genre:"たこ焼き",address:"茨城県水戸市千波町２４６７",link:"https://www.instagram.com/p/DRHJmnLE3c5/"},
+  {name:"激辛ラーメン専門店 レッチリ 土浦店",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市川口１丁目１−２７",link:"https://www.instagram.com/p/DRGHio0E4g_/"},
+  {name:"喜多方ラーメン坂内 牛久店",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市神谷６丁目１−２",link:"https://www.instagram.com/p/DREmC8Yk1XC/"},
+  {name:"くじら屋",city:"常陸太田市",genre:"グルメ",address:"茨城県常陸太田市東二町２２２４",link:"https://www.instagram.com/p/DRDjj8PE8FP/"},
+  {name:"パティスリー キャラメリア",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市赤塚１丁目１ ミオスビル 1F",link:"https://www.instagram.com/p/DRB-RGWE-zh/"},
+  {name:"栗夢堂",city:"石岡市",genre:"スイーツ",address:"茨城県石岡市鹿の子２丁目１６−１５",link:"https://www.instagram.com/p/DR9mHXkElRb/"},
+  {name:"麺屋京介",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市大畑８３７−１",link:"https://www.instagram.com/p/DQv-GQdE4a9/"},
+  {name:"菓心 松屋",city:"行方市",genre:"和菓子",address:"茨城県行方市山田３０１０−５",link:"https://www.instagram.com/p/DQgUC6-E8_N/"},
+  {name:"ジェラフル",city:"土浦市",genre:"アイスクリーム",address:"茨城県土浦市上高津３６７",link:"https://www.instagram.com/p/DQd6aonEyEt/"},
+  {name:"クーロンヌつくば",city:"つくば市",genre:"パン",address:"茨城県つくば市松野木１５２−４０",link:"https://www.instagram.com/p/DQbW07zk-lc/"},
+  {name:"Roji菜園テーブル＆夜食堂Roji",city:"つくば市",genre:"定食",address:"茨城県つくば市上ノ室５１６−２",link:"https://www.instagram.com/p/DQYtu6mk2tb/"},
+  {name:"ブーランジェリー アンキュイ",city:"つくば市",genre:"パン",address:"茨城県つくば市稲荷前３３−１",link:"https://www.instagram.com/p/DQWMmtWEwpy/"},
+  {name:"そば茶屋 楽花亭",city:"牛久市",genre:"そば",address:"茨城県牛久市女化町４５１",link:"https://www.instagram.com/p/DQTn2v5E2ia/"},
+  {name:"ラ・ファリーヌ",city:"鹿嶋市",genre:"パン",address:"茨城県鹿嶋市宮中 新町附2038-71",link:"https://www.instagram.com/p/DQQ82XCE53M/"}
+];
+
+// =====================================================
+// データ管理（localStorageで永続化）
+// =====================================================
+function loadStores() {
+  try {
+    const saved = localStorage.getItem('ibaraki_stores');
+    return saved ? JSON.parse(saved) : DEFAULT_STORES;
+  } catch(e) {
+    return DEFAULT_STORES;
+  }
+}
+
+function saveStores(stores) {
+  try {
+    localStorage.setItem('ibaraki_stores', JSON.stringify(stores));
+  } catch(e) {}
+}
+
+let stores = loadStores();
+
+// =====================================================
+// フィルタ用オプション生成
+// =====================================================
+function buildFilters() {
+  const cities = [...new Set(stores.map(s => s.city))].sort();
+  const genres = [...new Set(stores.map(s => s.genre))].sort();
+
+  const cityEl = document.getElementById('cityFilter');
+  const curCity = cityEl.value;
+  cityEl.innerHTML = '<option value="">📍 市町村 すべて</option>';
+  cities.forEach(c => {
+    const o = document.createElement('option');
+    o.value = c; o.textContent = c;
+    if (c === curCity) o.selected = true;
+    cityEl.appendChild(o);
+  });
+
+  const genreEl = document.getElementById('genreFilter');
+  const curGenre = genreEl.value;
+  genreEl.innerHTML = '<option value="">🍽 ジャンル すべて</option>';
+  genres.forEach(g => {
+    const o = document.createElement('option');
+    o.value = g; o.textContent = g;
+    if (g === curGenre) o.selected = true;
+    genreEl.appendChild(o);
+  });
+}
+
+// =====================================================
+// カード描画
+// =====================================================
+function render() {
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  const city = document.getElementById('cityFilter').value;
+  const genre = document.getElementById('genreFilter').value;
+
+  let filtered = stores.filter(s => {
+    const matchQ = !q || s.name.toLowerCase().includes(q)
+                       || (s.address || '').toLowerCase().includes(q);
+    const matchCity = !city || s.city === city;
+    const matchGenre = !genre || s.genre === genre;
+    return matchQ && matchCity && matchGenre;
+  });
+
+  document.getElementById('count').innerHTML =
+    `全 <b>${stores.length}</b> 件中 <b>${filtered.length}</b> 件表示`;
+
+  // チップのアクティブ状態を同期
+  const selCity = document.getElementById('cityFilter').value;
+  document.querySelectorAll('.city-chip').forEach(b => {
+    const cityName = b.textContent.replace(/\d+/g, '').trim();
+    if (cityName === selCity) b.classList.add('active');
+    else b.classList.remove('active');
+  });
+
+  const grid = document.getElementById('grid');
+  const noRes = document.getElementById('noResults');
+
+  if (filtered.length === 0) {
+    grid.innerHTML = '';
+    noRes.style.display = 'block';
+    return;
+  }
+  noRes.style.display = 'none';
+
+  grid.innerHTML = filtered.map((s, i) => `
+    <div class="card">
+      <div class="card-top">
+        <div class="card-name">${esc(s.name)}</div>
+        <span class="card-genre">🍴 ${esc(s.genre)}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-row">
+          <span class="icon">📍</span>
+          <span class="text"><span class="city-tag">${esc(s.city)}</span></span>
+        </div>
+        ${s.address ? `
+        <div class="card-row">
+          <span class="icon">🏠</span>
+          <span class="text">${esc(s.address)}</span>
+        </div>` : ''}
+        <a class="card-link" href="${esc(s.link)}" target="_blank" rel="noopener">
+          📷 Instagramで投稿を見る
+        </a>
+      </div>
+    </div>
+  `).join('');
+}
+
+function esc(str) {
+  return (str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;')
+                    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// =====================================================
+// リセット
+// =====================================================
+function resetFilters() {
+  document.getElementById('q').value = '';
+  document.getElementById('cityFilter').value = '';
+  document.getElementById('genreFilter').value = '';
+  render();
+}
+
+// =====================================================
+// パネルトグル
+// =====================================================
+function togglePanel(id, btn) {
+  const panel = document.getElementById(id);
+  const isOpen = panel.classList.contains('open');
+  // 全パネル閉じる
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
+  document.querySelectorAll('.btn-toggle').forEach(b => b.classList.remove('active'));
+  if (!isOpen) {
+    panel.classList.add('open');
+    btn.classList.add('active');
+  }
+}
+
+// =====================================================
+// 店舗追加
+// =====================================================
+function addStore() {
+  const name = document.getElementById('f_name').value.trim();
+  const city = document.getElementById('f_city').value.trim();
+  const genre = document.getElementById('f_genre').value.trim();
+  const address = document.getElementById('f_address').value.trim();
+  const link = document.getElementById('f_link').value.trim();
+
+  if (!name || !city || !genre) {
+    showToast('⚠ 店名・市町村・ジャンルは必須です');
+    return;
+  }
+
+  stores.unshift({ name, city, genre, address, link: link || 'https://www.instagram.com/ibaraki_yossy/' });
+  saveStores(stores);
+  buildFilters();
+  buildCityChips();
+  render();
+
+  // フォームリセット
+  ['f_name','f_city','f_genre','f_address','f_link'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+
+  showToast(`✅ 「${name}」を追加しました`);
+}
+
+// =====================================================
+// CSVインポート
+// =====================================================
+function importCSV() {
+  const raw = document.getElementById('csvText').value.trim();
+  if (!raw) { showToast('⚠ CSVデータがありません'); return; }
+
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  // 1行目がヘッダーかチェック
+  const start = lines[0].toLowerCase().includes('店名') || lines[0].toLowerCase().includes('name') ? 1 : 0;
+
+  let added = 0;
+  for (let i = start; i < lines.length; i++) {
+    const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g,''));
+    if (cols.length < 3) continue;
+    const [name, city, genre, address, link] = cols;
+    if (!name || !city || !genre) continue;
+    stores.push({
+      name, city, genre,
+      address: address || '',
+      link: link || 'https://www.instagram.com/ibaraki_yossy/'
+    });
+    added++;
+  }
+
+  if (added === 0) { showToast('⚠ 追加できるデータがありませんでした'); return; }
+
+  saveStores(stores);
+  buildFilters();
+  buildCityChips();
+  render();
+  document.getElementById('csvText').value = '';
+  showToast(`✅ ${added}件追加しました`);
+}
+
+// =====================================================
+// CSVエクスポート
+// =====================================================
+function exportCSV() {
+  const header = '店名,市町村,ジャンル,住所,Instagramリンク';
+  const rows = stores.map(s =>
+    [s.name, s.city, s.genre, s.address || '', s.link || ''].map(v => `"${v}"`).join(',')
+  );
+  const csv = [header, ...rows].join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'ibaraki_yossy_stores.csv';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('📤 CSVをダウンロードしました');
+}
+
+// テンプレート表示
+function showCSVTemplate() {
+  document.getElementById('csvText').value =
+`店名,市町村,ジャンル,住所,Instagramリンク
+例：麺と雫,水戸市,ラーメン,茨城県水戸市〇〇,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
+例：三日月,ひたちなか市,カフェ,茨城県ひたちなか市〇〇,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
+  showToast('📄 テンプレートを表示しました');
+}
+
+// =====================================================
+// トースト通知
+// =====================================================
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// =====================================================
+// 市町村クイックフィルターチップ
+// =====================================================
+function buildCityChips() {
+  const priority = ['牛久市', '土浦市', 'つくば市'];
+  const others = [...new Set(stores.map(s => s.city))]
+    .filter(c => !priority.includes(c)).sort();
+  const cities = [...priority, ...others];
+
+  const wrap = document.getElementById('cityChips');
+  wrap.innerHTML = cities.map(c => {
+    const cnt = stores.filter(s => s.city === c).length;
+    const sel = document.getElementById('cityFilter').value;
+    const active = sel === c ? 'active' : '';
+    return `<button class="city-chip ${active}" onclick="quickCity('${c}', this)">
+      ${c}<span class="cnt">${cnt}</span>
+    </button>`;
+  }).join('');
+}
+
+function quickCity(city, btn) {
+  const cf = document.getElementById('cityFilter');
+  if (cf.value === city) {
+    cf.value = '';
+  } else {
+    cf.value = city;
+  }
+  document.querySelectorAll('.city-chip').forEach(b => b.classList.remove('active'));
+  if (cf.value === city) btn.classList.add('active');
+  render();
+}
+
+// =====================================================
+// 初期化
+// =====================================================
+buildFilters();
+buildCityChips();
+render();
+</script>
+</body>
+</html>
