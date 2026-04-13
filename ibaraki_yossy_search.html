@@ -353,9 +353,6 @@
 <div class="search-wrap">
   <div class="search-row">
     <input type="text" id="q" placeholder="🔍 店名・住所で検索..." oninput="render()">
-    <select id="cityFilter" onchange="render()">
-      <option value="">📍 市町村 すべて</option>
-    </select>
     <select id="genreFilter" onchange="render()">
       <option value="">🍽 ジャンル すべて</option>
     </select>
@@ -381,8 +378,10 @@
       <input type="text" id="f_name" placeholder="店名 *">
       <input type="text" id="f_city" placeholder="市町村（例：水戸市）*">
       <input type="text" id="f_genre" placeholder="ジャンル（例：カフェ）*">
-      <input type="text" id="f_address" placeholder="住所">
-      <input type="url" id="f_link" placeholder="Instagramリンク" class="form-full">
+      <input type="text" id="f_memo" placeholder="詳細（例：トンコツ・つけ麺）">
+      <input type="text" id="f_address" placeholder="住所" class="form-full">
+      <input type="text" id="f_account" placeholder="投稿者アカウント（省略時：ibaraki_yossy）">
+      <input type="url" id="f_link" placeholder="Instagramリンク">
     </div>
     <button class="btn-add" onclick="addStore()">追加する</button>
   </div>
@@ -390,7 +389,7 @@
   <!-- CSV PANEL -->
   <div class="panel" id="csvPanel">
     <h3>📋 CSV インポート / エクスポート</h3>
-    <p class="csv-format">形式：店名,市町村,ジャンル,住所,Instagramリンク（1行目はヘッダー行）</p>
+    <p class="csv-format">形式：店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク（1行目はヘッダー行）</p>
     <div class="csv-area">
       <textarea id="csvText" placeholder="CSVデータをここに貼り付け..."></textarea>
     </div>
@@ -553,23 +552,13 @@ function saveStores(stores) {
 }
 
 let stores = loadStores();
+let selectedCities = new Set();
 
 // =====================================================
 // フィルタ用オプション生成
 // =====================================================
 function buildFilters() {
-  const cities = [...new Set(stores.map(s => s.city))].sort();
   const genres = [...new Set(stores.map(s => s.genre))].sort();
-
-  const cityEl = document.getElementById('cityFilter');
-  const curCity = cityEl.value;
-  cityEl.innerHTML = '<option value="">📍 市町村 すべて</option>';
-  cities.forEach(c => {
-    const o = document.createElement('option');
-    o.value = c; o.textContent = c;
-    if (c === curCity) o.selected = true;
-    cityEl.appendChild(o);
-  });
 
   const genreEl = document.getElementById('genreFilter');
   const curGenre = genreEl.value;
@@ -587,13 +576,12 @@ function buildFilters() {
 // =====================================================
 function render() {
   const q = document.getElementById('q').value.trim().toLowerCase();
-  const city = document.getElementById('cityFilter').value;
   const genre = document.getElementById('genreFilter').value;
 
   let filtered = stores.filter(s => {
     const matchQ = !q || s.name.toLowerCase().includes(q)
                        || (s.address || '').toLowerCase().includes(q);
-    const matchCity = !city || s.city === city;
+    const matchCity = selectedCities.size === 0 || selectedCities.has(s.city);
     const matchGenre = !genre || s.genre === genre;
     return matchQ && matchCity && matchGenre;
   });
@@ -602,10 +590,9 @@ function render() {
     `全 <b>${stores.length}</b> 件中 <b>${filtered.length}</b> 件表示`;
 
   // チップのアクティブ状態を同期
-  const selCity = document.getElementById('cityFilter').value;
   document.querySelectorAll('.city-chip').forEach(b => {
-    const cityName = b.textContent.replace(/\d+/g, '').trim();
-    if (cityName === selCity) b.classList.add('active');
+    const cityName = b.dataset.city;
+    if (selectedCities.has(cityName)) b.classList.add('active');
     else b.classList.remove('active');
   });
 
@@ -623,7 +610,7 @@ function render() {
     <div class="card">
       <div class="card-top">
         <div class="card-name">${esc(s.name)}</div>
-        <span class="card-genre">🍴 ${esc(s.genre)}</span>
+        <span class="card-genre">🍴 ${esc(s.memo || s.genre)}</span>
       </div>
       <div class="card-body">
         <div class="card-row">
@@ -638,6 +625,7 @@ function render() {
         <a class="card-link" href="${esc(s.link)}" target="_blank" rel="noopener">
           📷 Instagramで投稿を見る
         </a>
+        <div style="text-align:center;font-size:0.78rem;color:#aaa;margin-top:4px;">@${esc(s.account || 'ibaraki_yossy')}</div>
       </div>
     </div>
   `).join('');
@@ -653,8 +641,8 @@ function esc(str) {
 // =====================================================
 function resetFilters() {
   document.getElementById('q').value = '';
-  document.getElementById('cityFilter').value = '';
   document.getElementById('genreFilter').value = '';
+  selectedCities.clear();
   render();
 }
 
@@ -680,7 +668,9 @@ function addStore() {
   const name = document.getElementById('f_name').value.trim();
   const city = document.getElementById('f_city').value.trim();
   const genre = document.getElementById('f_genre').value.trim();
+  const memo = document.getElementById('f_memo').value.trim();
   const address = document.getElementById('f_address').value.trim();
+  const account = document.getElementById('f_account').value.trim();
   const link = document.getElementById('f_link').value.trim();
 
   if (!name || !city || !genre) {
@@ -688,14 +678,14 @@ function addStore() {
     return;
   }
 
-  stores.unshift({ name, city, genre, address, link: link || 'https://www.instagram.com/ibaraki_yossy/' });
+  stores.unshift({ name, city, genre, memo, address, account: account || 'ibaraki_yossy', link: link || 'https://www.instagram.com/ibaraki_yossy/' });
   saveStores(stores);
   buildFilters();
   buildCityChips();
   render();
 
   // フォームリセット
-  ['f_name','f_city','f_genre','f_address','f_link'].forEach(id => {
+  ['f_name','f_city','f_genre','f_memo','f_address','f_account','f_link'].forEach(id => {
     document.getElementById(id).value = '';
   });
 
@@ -717,11 +707,13 @@ function importCSV() {
   for (let i = start; i < lines.length; i++) {
     const cols = lines[i].split(',').map(c => c.trim().replace(/^"|"$/g,''));
     if (cols.length < 3) continue;
-    const [name, city, genre, address, link] = cols;
+    const [name, city, genre, memo, address, account, link] = cols;
     if (!name || !city || !genre) continue;
     stores.push({
       name, city, genre,
+      memo: memo || '',
       address: address || '',
+      account: account || 'ibaraki_yossy',
       link: link || 'https://www.instagram.com/ibaraki_yossy/'
     });
     added++;
@@ -741,9 +733,9 @@ function importCSV() {
 // CSVエクスポート
 // =====================================================
 function exportCSV() {
-  const header = '店名,市町村,ジャンル,住所,Instagramリンク';
+  const header = '店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク';
   const rows = stores.map(s =>
-    [s.name, s.city, s.genre, s.address || '', s.link || ''].map(v => `"${v}"`).join(',')
+    [s.name, s.city, s.genre, s.memo || '', s.address || '', s.account || 'ibaraki_yossy', s.link || ''].map(v => `"${v}"`).join(',')
   );
   const csv = [header, ...rows].join('\n');
   const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
@@ -759,9 +751,9 @@ function exportCSV() {
 // テンプレート表示
 function showCSVTemplate() {
   document.getElementById('csvText').value =
-`店名,市町村,ジャンル,住所,Instagramリンク
-例：麺と雫,水戸市,ラーメン,茨城県水戸市〇〇,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
-例：三日月,ひたちなか市,カフェ,茨城県ひたちなか市〇〇,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
+`店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク
+例：麺と雫,水戸市,ラーメン,トンコツ,茨城県水戸市〇〇,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
+例：三日月,ひたちなか市,カフェ,,茨城県ひたちなか市〇〇,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
   showToast('📄 テンプレートを表示しました');
 }
 
@@ -787,23 +779,21 @@ function buildCityChips() {
   const wrap = document.getElementById('cityChips');
   wrap.innerHTML = cities.map(c => {
     const cnt = stores.filter(s => s.city === c).length;
-    const sel = document.getElementById('cityFilter').value;
-    const active = sel === c ? 'active' : '';
-    return `<button class="city-chip ${active}" onclick="quickCity('${c}', this)">
+    const active = selectedCities.has(c) ? 'active' : '';
+    return `<button class="city-chip ${active}" data-city="${c}" onclick="quickCity('${c}', this)">
       ${c}<span class="cnt">${cnt}</span>
     </button>`;
   }).join('');
 }
 
 function quickCity(city, btn) {
-  const cf = document.getElementById('cityFilter');
-  if (cf.value === city) {
-    cf.value = '';
+  if (selectedCities.has(city)) {
+    selectedCities.delete(city);
+    btn.classList.remove('active');
   } else {
-    cf.value = city;
+    selectedCities.add(city);
+    btn.classList.add('active');
   }
-  document.querySelectorAll('.city-chip').forEach(b => b.classList.remove('active'));
-  if (cf.value === city) btn.classList.add('active');
   render();
 }
 
