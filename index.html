@@ -415,6 +415,12 @@
 // 初期データ（ibaraki_yossyアカウントの投稿より収集）
 // =====================================================
 const DEFAULT_STORES = [
+  {name:"cafe anello",city:"牛久市",genre:"スイーツ・ケーキ",address:"茨城県牛久市ひたち野西３丁目２７−１５",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXY2XSQk2XN/"},
+  {name:"啄木鳥",city:"つくば市",genre:"グルメ",address:"茨城県つくば市高野１１５９−４",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXTqQxuE-ZL/"},
+  {name:"浜屋",city:"北相馬郡利根町",genre:"そば",address:"茨城県北相馬郡利根町横須賀１１７１−２",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXRGkyskx16/"},
+  {name:"プラネタリウム焼肉",city:"つくば市",genre:"焼肉",address:"茨城県つくば市吉瀬１７３４−１",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXL8nE9E2x7/"},
+  {name:"幸春堂",city:"土浦市",genre:"カレー",address:"茨城県土浦市大和町５−１４",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXJVXh_E9HU/"},
+  {name:"おみたまヨーグルト・ヨーグルトハウス",city:"小美玉市",genre:"カフェ",address:"茨城県小美玉市山野１６２８−４２",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXEPHjpEzSi/"},
   {name:"おみたまキッチン",city:"小美玉市",genre:"パスタ・イタリアン",address:"茨城県小美玉市山野１６２８−４４",link:"https://www.instagram.com/p/DXBn_1Qk9kF/"},
   {name:"OwL 日本茶専門店&和カフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市二の宮２丁目14−16",link:"https://www.instagram.com/p/DW_Kc1hE5O0/"},
   {name:"甘味 ema",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市末広町３丁目２−３５",link:"https://www.instagram.com/p/DW8etBmk03e/"},
@@ -487,7 +493,7 @@ const DEFAULT_STORES = [
   {name:"麺屋京介",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市大畑８３７−１",link:"https://www.instagram.com/p/DU5Lc0Kk7sL/"},
   {name:"焼き芋専門店 芋やす",city:"土浦市",genre:"スイーツ",address:"茨城県土浦市沖新田１",link:"https://www.instagram.com/p/DU0CgGPE73-/"},
   {name:"鮨あさの",city:"常総市",genre:"寿司",address:"茨城県常総市小保川１４５６−１",link:"https://www.instagram.com/p/DUxa89fE9ix/"},
-  {name:"おぼろ豆富・湯波専門店まめ乃家",city:"つくば市",genre:"定食",address:"茨城県つくば市手代木９６１−９",link:"https://www.instagram.com/p/DUu3Y49k4Am/"},
+  {name:"おぼろ豆富・湯波専門店まめ乃家",city:"つくば市",genre:"定食",address:"茨城県つくば市手代木９６１−９",link:"https://www.imstagram.com/p/DUu3Y49k4Am/"},
   {name:"峠のクマタコ",city:"潮来市",genre:"たこ焼き",address:"茨城県潮来市築地５３２",link:"https://www.instagram.com/p/DT4xGygkw0G/"},
   {name:"らぽっぽなめがたファーマーズヴィレッジ",city:"行方市",genre:"スイーツ",address:"茨城県行方市宇崎１５６１",link:"https://www.instagram.com/p/DT2LG06E5V9/"},
   {name:"りんちゃんのおやつ",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市手代木２００５−３",link:"https://www.instagram.com/p/DTxDizDkwmB/"},
@@ -520,7 +526,7 @@ const DEFAULT_STORES = [
   {name:"ええもん8",city:"水戸市",genre:"たこ焼き",address:"茨城県水戸市千波町２４６７",link:"https://www.instagram.com/p/DRHJmnLE3c5/"},
   {name:"激辛ラーメン専門店 レッチリ 土浦店",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市川口１丁目１−２７",link:"https://www.instagram.com/p/DRGHio0E4g_/"},
   {name:"喜多方ラーメン坂内 牛久店",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市神谷６丁目１−２",link:"https://www.instagram.com/p/DREmC8Yk1XC/"},
-  {name:"くじら屋",city:"常陸太田市",genre:"グルメ",address:"茨城県常陸太田市東二町２２２４",link:"https://www.instagram.com/p/DRDjj8PE8FP/"},
+  {name:"くじら屋",city:"常陸太田市",genre:"グルメ",address:"茨城県常陸太田市東二町２２２４",link:"https://www.instagram.com/p/ERDjj8PE8FP/"},
   {name:"パティスリー キャラメリア",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市赤塚１丁目１ ミオスビル 1F",link:"https://www.instagram.com/p/DRB-RGWE-zh/"},
   {name:"栗夢堂",city:"石岡市",genre:"スイーツ",address:"茨城県石岡市鹿の子２丁目１６−１５",link:"https://www.instagram.com/p/DR9mHXkElRb/"},
   {name:"麺屋京介",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市大畑８３７−１",link:"https://www.instagram.com/p/DQv-GQdE4a9/"},
@@ -562,7 +568,7 @@ function buildFilters() {
 
   const genreEl = document.getElementById('genreFilter');
   const curGenre = genreEl.value;
-  genreEl.innerHTML = '<option value="">🍽 ジャンル すべて</option>';
+  genreEl.innerHTML = '<option value="">🍽 ジャンル すぽて</option>';
   genres.forEach(g => {
     const o = document.createElement('option');
     o.value = g; o.textContent = g;
