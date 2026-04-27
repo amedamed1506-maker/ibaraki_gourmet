@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>茨城グルメよっしー 店舗検索ツール</title>
+  <title>è¨åã°ã«ã¡ãã£ãã¼ åºèæ¤ç´¢ãã¼ã«</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -342,21 +342,21 @@
 <body>
 
 <header>
-  <div class="ig-icon">📸</div>
-  <h1>茨城グルメよっしー 店舗検索</h1>
-  <p>茨城県内の美味しいグルメ情報をまとめて検索</p>
+  <div class="ig-icon">ð¸</div>
+  <h1>è¨åã°ã«ã¡ãã£ãã¼ åºèæ¤ç´¢</h1>
+  <p>è¨åçåã®ç¾å³ããã°ã«ã¡æå ±ãã¾ã¨ãã¦æ¤ç´¢</p>
   <a class="ig-link" href="https://www.instagram.com/ibaraki_yossy/" target="_blank" rel="noopener">
-    📷 @ibaraki_yossy をフォロー
+    ð· @ibaraki_yossy ããã©ã­ã¼
   </a>
 </header>
 
 <div class="search-wrap">
   <div class="search-row">
-    <input type="text" id="q" placeholder="🔍 店名・住所で検索..." oninput="render()">
+    <input type="text" id="q" placeholder="ð åºåã»ä½æã§æ¤ç´¢..." oninput="render()">
     <select id="genreFilter" onchange="render()">
-      <option value="">🍽 ジャンル すべて</option>
+      <option value="">ð½ ã¸ã£ã³ã« ãã¹ã¦</option>
     </select>
-    <button class="btn-reset" onclick="resetFilters()">✕ リセット</button>
+    <button class="btn-reset" onclick="resetFilters()">â ãªã»ãã</button>
   </div>
 </div>
 
@@ -366,45 +366,45 @@
   <div class="result-info">
     <span id="count"></span>
     <div class="section-toggle">
-      <button class="btn-toggle" onclick="togglePanel('addPanel', this)">＋ 店舗を追加</button>
-      <button class="btn-toggle" onclick="togglePanel('csvPanel', this)">📋 CSV インポート/エクスポート</button>
+      <button class="btn-toggle" onclick="togglePanel('addPanel', this)">ï¼ åºèãè¿½å </button>
+      <button class="btn-toggle" onclick="togglePanel('csvPanel', this)">ð CSV ã¤ã³ãã¼ã/ã¨ã¯ã¹ãã¼ã</button>
     </div>
   </div>
 
   <!-- ADD PANEL -->
   <div class="panel" id="addPanel">
-    <h3>📝 新しい店舗を追加</h3>
+    <h3>ð æ°ããåºèãè¿½å </h3>
     <div class="form-grid">
-      <input type="text" id="f_name" placeholder="店名 *">
-      <input type="text" id="f_city" placeholder="市町村（例：水戸市）*">
-      <input type="text" id="f_genre" placeholder="ジャンル（例：カフェ）*">
-      <input type="text" id="f_memo" placeholder="詳細（例：トンコツ・つけ麺）">
-      <input type="text" id="f_address" placeholder="住所" class="form-full">
-      <input type="text" id="f_account" placeholder="投稿者アカウント（省略時：ibaraki_yossy）">
-      <input type="url" id="f_link" placeholder="Instagramリンク">
+      <input type="text" id="f_name" placeholder="åºå *">
+      <input type="text" id="f_city" placeholder="å¸çºæï¼ä¾ï¼æ°´æ¸å¸ï¼*">
+      <input type="text" id="f_genre" placeholder="ã¸ã£ã³ã«ï¼ä¾ï¼ã«ãã§ï¼*">
+      <input type="text" id="f_memo" placeholder="è©³ç´°ï¼ä¾ï¼ãã³ã³ãã»ã¤ãéººï¼">
+      <input type="text" id="f_address" placeholder="ä½æ" class="form-full">
+      <input type="text" id="f_account" placeholder="æç¨¿èã¢ã«ã¦ã³ãï¼çç¥æï¼ibaraki_yossyï¼">
+      <input type="url" id="f_link" placeholder="Instagramãªã³ã¯">
     </div>
-    <button class="btn-add" onclick="addStore()">追加する</button>
+    <button class="btn-add" onclick="addStore()">è¿½å ãã</button>
   </div>
 
   <!-- CSV PANEL -->
   <div class="panel" id="csvPanel">
-    <h3>📋 CSV インポート / エクスポート</h3>
-    <p class="csv-format">形式：店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク（1行目はヘッダー行）</p>
+    <h3>ð CSV ã¤ã³ãã¼ã / ã¨ã¯ã¹ãã¼ã</h3>
+    <p class="csv-format">å½¢å¼ï¼åºå,å¸çºæ,ã¸ã£ã³ã«,è©³ç´°,ä½æ,æç¨¿è,Instagramãªã³ã¯ï¼1è¡ç®ã¯ãããã¼è¡ï¼</p>
     <div class="csv-area">
-      <textarea id="csvText" placeholder="CSVデータをここに貼り付け..."></textarea>
+      <textarea id="csvText" placeholder="CSVãã¼ã¿ãããã«è²¼ãä»ã..."></textarea>
     </div>
     <div class="csv-btns">
-      <button class="btn-csv primary" onclick="importCSV()">📥 CSVをインポート</button>
-      <button class="btn-csv" onclick="exportCSV()">📤 CSVをエクスポート</button>
-      <button class="btn-csv" onclick="showCSVTemplate()">📄 テンプレートを表示</button>
+      <button class="btn-csv primary" onclick="importCSV()">ð¥ CSVãã¤ã³ãã¼ã</button>
+      <button class="btn-csv" onclick="exportCSV()">ð¤ CSVãã¨ã¯ã¹ãã¼ã</button>
+      <button class="btn-csv" onclick="showCSVTemplate()">ð ãã³ãã¬ã¼ããè¡¨ç¤º</button>
     </div>
   </div>
 
   <div class="grid" id="grid"></div>
   <div class="no-results" id="noResults" style="display:none">
-    <div class="emoji">🔍</div>
-    <div>該当する店舗が見つかりませんでした</div>
-    <div style="font-size:0.82rem;margin-top:6px;color:#bbb">検索条件を変えてみてください</div>
+    <div class="emoji">ð</div>
+    <div>è©²å½ããåºèãè¦ã¤ããã¾ããã§ãã</div>
+    <div style="font-size:0.82rem;margin-top:6px;color:#bbb">æ¤ç´¢æ¡ä»¶ãå¤ãã¦ã¿ã¦ãã ãã</div>
   </div>
 </div>
 
@@ -412,135 +412,137 @@
 
 <script>
 // =====================================================
-// 初期データ（ibaraki_yossyアカウントの投稿より収集）
+// åæãã¼ã¿ï¼ibaraki_yossyã¢ã«ã¦ã³ãã®æç¨¿ããåéï¼
 // =====================================================
 const DEFAULT_STORES = [
-  {name:"cafe anello",city:"牛久市",genre:"スイーツ・ケーキ",address:"茨城県牛久市ひたち野西３丁目２７−１５",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXY2XSQk2XN/"},
-  {name:"啄木鳥",city:"つくば市",genre:"グルメ",address:"茨城県つくば市高野１１５９−４",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXTqQxuE-ZL/"},
-  {name:"浜屋",city:"北相馬郡利根町",genre:"そば",address:"茨城県北相馬郡利根町横須賀１１７１−２",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXRGkyskx16/"},
-  {name:"プラネタリウム焼肉",city:"つくば市",genre:"焼肉",address:"茨城県つくば市吉瀬１７３４−１",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXL8nE9E2x7/"},
-  {name:"幸春堂",city:"土浦市",genre:"カレー",address:"茨城県土浦市大和町５−１４",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXJVXh_E9HU/"},
-  {name:"おみたまヨーグルト・ヨーグルトハウス",city:"小美玉市",genre:"カフェ",address:"茨城県小美玉市山野１６２８−４２",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXEPHjpEzSi/"},
-  {name:"おみたまキッチン",city:"小美玉市",genre:"パスタ・イタリアン",address:"茨城県小美玉市山野１６２８−４４",link:"https://www.instagram.com/p/DXBn_1Qk9kF/"},
-  {name:"OwL 日本茶専門店&和カフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市二の宮２丁目14−16",link:"https://www.instagram.com/p/DW_Kc1hE5O0/"},
-  {name:"甘味 ema",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市末広町３丁目２−３５",link:"https://www.instagram.com/p/DW8etBmk03e/"},
-  {name:"麺屋 い志だ",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市中高津１丁目１５−２１",link:"https://www.instagram.com/p/DW56_3Kkw2E/"},
-  {name:"あさいカフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市今鹿島４０１５",link:"https://www.instagram.com/p/DW3YGTzk16S/"},
-  {name:"ほうずき丸",city:"つくば市",genre:"うどん",address:"茨城県つくば市館野５−１",link:"https://www.instagram.com/p/DW0yzl1k0-s/"},
-  {name:"sois",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町本郷３丁目2−１３",link:"https://www.instagram.com/p/DWyLSKokyQi/"},
-  {name:"PANDA MARKET",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市笠原町９７８−６ 茨城県庁 25階 展望ロビー",link:"https://www.instagram.com/p/DWvkOOtEziO/"},
-  {name:"プリズム",city:"つくばみらい市",genre:"カフェ",address:"茨城県つくばみらい市富士見ヶ丘１丁目１３−１７",link:"https://www.instagram.com/p/DWtE_T5k3HB/"},
-  {name:"釜焼きチャーシュー らーめん喜楽",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市中央３丁目１６−１",link:"https://www.instagram.com/p/DWqdd_XD2g6/"},
-  {name:"トロッポドーナツ",city:"つくば市",genre:"ドーナツ",address:"茨城県つくば市学園の森３丁目４４",link:"https://www.instagram.com/p/DWn7lAKk0Lw/"},
-  {name:"茨城豚そば 特龍 本店",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町阿見６００",link:"https://www.instagram.com/p/DWlSj94kx4y/"},
-  {name:"イロイロパンヤ 穂穂穂 -HOHOHO-",city:"水戸市",genre:"パン",address:"茨城県水戸市堀町１１８８ 1PatioM106",link:"https://www.instagram.com/p/DWitCSvE-OF/"},
-  {name:"どうとんぼり神座 イーアスつくば店",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市研究学園５丁目１９",link:"https://www.instagram.com/p/DWgJ4Ohk2qq/"},
-  {name:"天ぷら 佐和屋",city:"龍ケ崎市",genre:"天ぷら",address:"茨城県龍ケ崎市久保台１丁目7−１",link:"https://www.instagram.com/p/DWdjazOE73D/"},
-  {name:"蔵出し焼き芋 かいつか AEON土浦店",city:"土浦市",genre:"スイーツ",address:"茨城県土浦市上高津３６７ イオンモール土浦1F",link:"https://www.instagram.com/p/DWa8A7Hk0Kv/"},
-  {name:"Les Epices エピス",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市笠原町１０５１−２",link:"https://www.instagram.com/p/DWYaRz8E7sQ/"},
-  {name:"そば すぎもと",city:"つくばみらい市",genre:"そば",address:"茨城県つくばみらい市陽光台４丁目１３−２",link:"https://www.instagram.com/p/DWV1MeVE94S/"},
-  {name:"らぁめん ゑびすや",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市春日４丁目２６−１",link:"https://www.instagram.com/p/DWTRTcCEwiC/"},
-  {name:"コーチャンフォー つくば店",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市学園の森３丁目５０−７",link:"https://www.instagram.com/p/DWQuiDCEwRE/"},
-  {name:"Curry & Bake",city:"水戸市",genre:"カレー",address:"茨城県水戸市堀町２１１１−２",link:"https://www.instagram.com/p/DWOJXRGkxrT/"},
-  {name:"コンビニエンスラビット",city:"神栖市",genre:"クレープ",address:"茨城県神栖市大野原７丁目７−８７",link:"https://www.instagram.com/p/DWLq6dvEzjG/"},
-  {name:"菓心 松屋",city:"行方市",genre:"和菓子",address:"茨城県行方市山田３０１０−５",link:"https://www.instagram.com/p/DWJBSgIExf6/"},
-  {name:"ラ・プロヴァンス",city:"鉾田市",genre:"洋菓子",address:"茨城県鉾田市塔ケ崎１０１７−１",link:"https://www.instagram.com/p/DWGdHHHk37U/"},
-  {name:"らぁーめん滿帆家",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市ひたち野東３丁目1−３",link:"https://www.instagram.com/p/DV-vr6Ak3YS/"},
-  {name:"手打ち蕎麦山ざき",city:"龍ケ崎市",genre:"そば",address:"茨城県龍ケ崎市姫宮町253-1",link:"https://www.instagram.com/p/DV8JS78k-2s/"},
-  {name:"韓国料理 炭火焼肉 ハンアリ",city:"つくば市",genre:"韓国料理",address:"茨城県つくば市妻木2100ー7",link:"https://www.instagram.com/p/DV5kte-E6p-/"},
-  {name:"雪達磨 -スープ専門店-",city:"石岡市",genre:"スープ",address:"茨城県石岡市大砂１０３８３−４８",link:"https://www.instagram.com/p/DV224k3kwMj/"},
-  {name:"パン工房あいちゃんち",city:"小美玉市",genre:"パン",address:"茨城県小美玉市中延556−1",link:"https://www.instagram.com/p/DV0fd-HE2aq/"},
-  {name:"ガトー・プーリア",city:"つくば市",genre:"スイーツ・ケーキ",address:"茨城県つくば市水堀５８７−５４",link:"https://www.instagram.com/p/DVx5k5jE-NM/"},
-  {name:"桜坂テラス",city:"稲敷郡阿見町",genre:"カレー",address:"茨城県稲敷郡阿見町青宿３６８−２",link:"https://www.instagram.com/p/DVvTy20EzGp/"},
-  {name:"味噌ラーメン山岡家 阿見店",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町西郷３丁目1−７",link:"https://www.instagram.com/p/DVsrGdDkz98/"},
-  {name:"プレゴ",city:"土浦市",genre:"スープ",address:"茨城県土浦市小岩田西１丁目１−１１",link:"https://www.instagram.com/p/DVqIeldk3e4/"},
-  {name:"ピタマックスのケバブ",city:"神栖市",genre:"グルメ",address:"茨城県神栖市大野原５丁目５",link:"https://www.instagram.com/p/DVniHEtExgq/"},
-  {name:"のっぽ",city:"神栖市",genre:"パスタ・イタリアン",address:"茨城県神栖市太田３１２５−３",link:"https://www.instagram.com/p/DVk8pp8kwYz/"},
-  {name:"鮪たけもと",city:"水戸市",genre:"寿司",address:"茨城県水戸市米沢町600−3",link:"https://www.instagram.com/p/DViVr9pkwxB/"},
-  {name:"アヌエヌエ・ポノ",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市東赤塚2112",link:"https://www.instagram.com/p/DVfwsRUEyys/"},
-  {name:"諸川商店",city:"東茨城郡茨城町",genre:"スイーツ",address:"茨城県東茨城郡茨城町駒場２２０",link:"https://www.instagram.com/p/DVdaFRJkylS/"},
-  {name:"ハムたい",city:"水戸市",genre:"グルメ",address:"茨城県水戸市桜川2-4-35",link:"https://www.instagram.com/p/DVaq_XZk5iV/"},
-  {name:"カルケット",city:"稲敷郡阿見町",genre:"グルメ",address:"茨城県稲敷郡阿見町中央３丁目３−１０",link:"https://www.instagram.com/p/DVYEdF5k5-r/"},
-  {name:"うさぎの団子屋さん でん福",city:"稲敷市",genre:"グルメ",address:"茨城県稲敷市曲渕3",link:"https://www.instagram.com/p/DVVfztlkwkd/"},
-  {name:"沼田屋本店",city:"つくば市",genre:"グルメ",address:"茨城県つくば市沼田１４００",link:"https://www.instagram.com/p/DVS627Ok0vt/"},
-  {name:"BENCH",city:"つくば市",genre:"パン",address:"茨城県つくば市面野井８７０−１",link:"https://www.instagram.com/p/DVQVUJ3k3Sf/"},
-  {name:"パティスリーKOSAI",city:"水戸市",genre:"洋菓子",address:"茨城県水戸市元吉田町２２３８−６",link:"https://www.instagram.com/p/DVNwGVGkyPF/"},
-  {name:"ラーメンショップ◯化 つくば店",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市妻木１７６６−２",link:"https://www.instagram.com/p/DVLLVHPE59U/"},
-  {name:"たいやき君",city:"龍ケ崎市",genre:"和菓子",address:"茨城県龍ケ崎市寺後３５５８−１ 1",link:"https://www.instagram.com/p/DVIrag7E15H/"},
-  {name:"オールマイグッドバーガー",city:"稲敷郡阿見町",genre:"ハンバーガー",address:"茨城県稲敷郡阿見町青宿４２５−６",link:"https://www.instagram.com/p/DVGEXPSE6Tk/"},
-  {name:"芋久",city:"牛久市",genre:"スイーツ",address:"茨城県牛久市猪子町８０１−２０",link:"https://www.instagram.com/p/DVDdXe1EaLN/"},
-  {name:"つくば食堂 花",city:"つくば市",genre:"定食",address:"茨城県つくば市上野７００−５",link:"https://www.instagram.com/p/DUsVGXSk-np/"},
-  {name:"しふぉん工房Ohana",city:"稲敷市",genre:"スイーツ・ケーキ",address:"茨城県稲敷市角崎１６０６−２９",link:"https://www.instagram.com/p/DUptz0Tk5xc/"},
-  {name:"やきいもアミナ",city:"かすみがうら市",genre:"スイーツ",address:"茨城県かすみがうら市稲吉２丁目５−１１",link:"https://www.instagram.com/p/DUkj231E7Fh/"},
-  {name:"ミルリトン",city:"土浦市",genre:"スイーツ・ケーキ",address:"茨城県土浦市中高津２丁目４−１３",link:"https://www.instagram.com/p/DUiO4c8k7x0/"},
-  {name:"麺屋壱心",city:"龍ケ崎市",genre:"ラーメン",address:"茨城県龍ケ崎市南中島町６８−１２",link:"https://www.instagram.com/p/DUfYXPoE84v/"},
-  {name:"古民家cafeななかまど",city:"小美玉市",genre:"カフェ",address:"茨城県小美玉市羽鳥1538",link:"https://www.instagram.com/p/DUc1ApuE9uh/"},
-  {name:"＆SHEEP（アンドシープ）",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市桜２丁目39−１",link:"https://www.instagram.com/p/DUSnlOYkwx7/"},
-  {name:"中華そば 春ちゃん",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市北条５０４３−８",link:"https://www.instagram.com/p/DUP-QbPE-K3/"},
-  {name:"おおきや 大阪ソウルフード 粉と肉とだし",city:"つくば市",genre:"たこ焼き",address:"茨城県つくば市上横場２３６５−８",link:"https://www.instagram.com/p/DUNbnkgE2HV/"},
-  {name:"海鮮食事処 いしざき",city:"小美玉市",genre:"海鮮",address:"茨城県小美玉市中延５９５−１",link:"https://www.instagram.com/p/DUK5ifrE6oq/"},
-  {name:"YtoI わいとあい",city:"石岡市",genre:"ドーナツ",address:"茨城県石岡市茨城１丁目４−３５",link:"https://www.instagram.com/p/DUITQikE8hw/"},
-  {name:"つくば星空カフェ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市吉瀬１７３４−１",link:"https://www.instagram.com/p/DUFqfRtk_aA/"},
-  {name:"お惣菜カノン",city:"守谷市",genre:"定食",address:"茨城県守谷市百合ケ丘３丁目２７８５−１",link:"https://www.instagram.com/p/DTfDinRE-Kq/"},
-  {name:"GESELLE",city:"守谷市",genre:"パン",address:"茨城県守谷市中央２丁目５３",link:"https://www.instagram.com/p/DTceIHBExPJ/"},
-  {name:"明宣庵",city:"坂東市",genre:"和食",address:"茨城県坂東市上出島885-1",link:"https://www.instagram.com/p/DTZ47Hvk34n/"},
-  {name:"やっこ凧",city:"守谷市",genre:"たこ焼き",address:"茨城県守谷市高野５０２４",link:"https://www.instagram.com/p/DTXS9DPExps/"},
-  {name:"いちご家のむのむ",city:"石岡市",genre:"スイーツ",address:"茨城県石岡市小幡１４１６",link:"https://www.instagram.com/p/DTUuECkEz9j/"},
-  {name:"自家製麺つけそば九六",city:"つくばみらい市",genre:"そば",address:"茨城県つくばみらい市絹の台２丁目14−３",link:"https://www.instagram.com/p/DTNDoFEE-hA/"},
-  {name:"こおひいはうす らんぷ",city:"つくば市",genre:"カフェ",address:"茨城県つくば市天久保３丁目１０−１７",link:"https://www.instagram.com/p/DTKf28VEwl-/"},
-  {name:"たこやきや&Co.",city:"稲敷市",genre:"たこ焼き",address:"茨城県稲敷市犬塚１６１７−５",link:"https://www.instagram.com/p/DTFRjgxEwMQ/"},
-  {name:"蔵日和",city:"つくば市",genre:"カフェ",address:"茨城県つくば市金田３８−１",link:"https://www.instagram.com/p/DU7w3Nzk-2p/"},
-  {name:"麺屋京介",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市大畑８３７−１",link:"https://www.instagram.com/p/DU5Lc0Kk7sL/"},
-  {name:"焼き芋専門店 芋やす",city:"土浦市",genre:"スイーツ",address:"茨城県土浦市沖新田１",link:"https://www.instagram.com/p/DU0CgGPE73-/"},
-  {name:"鮨あさの",city:"常総市",genre:"寿司",address:"茨城県常総市小保川１４５６−１",link:"https://www.instagram.com/p/DUxa89fE9ix/"},
-  {name:"おぼろ豆富・湯波専門店まめ乃家",city:"つくば市",genre:"定食",address:"茨城県つくば市手代木９６１−９",link:"https://www.imstagram.com/p/DUu3Y49k4Am/"},
-  {name:"峠のクマタコ",city:"潮来市",genre:"たこ焼き",address:"茨城県潮来市築地５３２",link:"https://www.instagram.com/p/DT4xGygkw0G/"},
-  {name:"らぽっぽなめがたファーマーズヴィレッジ",city:"行方市",genre:"スイーツ",address:"茨城県行方市宇崎１５６１",link:"https://www.instagram.com/p/DT2LG06E5V9/"},
-  {name:"りんちゃんのおやつ",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市手代木２００５−３",link:"https://www.instagram.com/p/DTxDizDkwmB/"},
-  {name:"冨久長",city:"水戸市",genre:"和食",address:"茨城県水戸市城東２丁目６−１１",link:"https://www.instagram.com/p/DTv6HJXE7Zr/"},
-  {name:"さんぴ",city:"つくばみらい市",genre:"海鮮",address:"茨城県つくばみらい市絹の台２丁目4−8",link:"https://www.instagram.com/p/DSPOV0rEyO5/"},
-  {name:"ミオジェラート",city:"守谷市",genre:"アイスクリーム",address:"茨城県守谷市大柏１１２５−７",link:"https://www.instagram.com/p/DSMqUi-k_7t/"},
-  {name:"かさまとチョコレート工場",city:"笠間市",genre:"スイーツ",address:"茨城県笠間市笠間984-1",link:"https://www.instagram.com/p/DSLpEKNk2kw/"},
-  {name:"鳥の海 つくば店",city:"つくば市",genre:"ビュッフェ・食べ放題",address:"茨城県つくば市研究学園４丁目2−１４",link:"https://www.instagram.com/p/DSKJR-5kzrp/"},
-  {name:"だしとおうどん まつしん",city:"守谷市",genre:"うどん",address:"茨城県守谷市板戸井２１９５−１１",link:"https://www.instagram.com/p/DSE4Sx1E6NK/"},
-  {name:"伊勢屋",city:"取手市",genre:"ラーメン",address:"茨城県取手市新町５丁目１８−１３",link:"https://www.instagram.com/p/DSCVoyhk2sB/"},
-  {name:"鶏々",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市天久保２丁目8−1",link:"https://www.instagram.com/p/DS_yuHjk3Ax/"},
-  {name:"麺屋 隆志",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市中村西根２１４０−７",link:"https://www.instagram.com/p/DSUWbjsk09d/"},
-  {name:"お菓子の店 メープル",city:"守谷市",genre:"洋菓子",address:"茨城県守谷市松前台1丁目16−４",link:"https://www.instagram.com/p/DSRy22KE1tV/"},
-  {name:"うおやす",city:"石岡市",genre:"天ぷら",address:"茨城県石岡市旭台３丁目４−６",link:"https://www.instagram.com/p/DSo9Henk6Yu/"},
-  {name:"石窯パン工房 カンパーニュ",city:"水戸市",genre:"パン",address:"茨城県水戸市河和田町３７１７−３",link:"https://www.instagram.com/p/DSmbj6Pk0Wb/"},
-  {name:"ラ・ブランジェ・サニー",city:"水戸市",genre:"パン",address:"茨城県水戸市米沢町364−７",link:"https://www.instagram.com/p/DSjzRbUE4S-/"},
-  {name:"コーチャンフォーつくば店",city:"つくば市",genre:"アイスクリーム",address:"茨城県つくば市学園の森３丁目５０−７",link:"https://www.instagram.com/p/DShVWeIE6lX/"},
-  {name:"魚料理ひろせ",city:"つくば市",genre:"海鮮",address:"茨城県つくば市上郷６８６０",link:"https://www.instagram.com/p/DSgOuGCkxkd/"},
-  {name:"納豆DOG",city:"笠間市",genre:"グルメ",address:"茨城県笠間市長兎路１０５１−３",link:"https://www.instagram.com/p/DSetZfPE8-u/"},
-  {name:"はっこめ〜発酵とお米のお店",city:"つくば市",genre:"カフェ",address:"茨城県つくば市流星台１７−１ 1F",link:"https://www.instagram.com/p/DSdsdFIk18f/"},
-  {name:"友部あんこう焼き",city:"笠間市",genre:"和菓子",address:"茨城県笠間市長兎路１０５１−３ 常磐自動車道下り線友部SA内",link:"https://www.instagram.com/p/DSbYQ6CkrVm/"},
-  {name:"大判焼き不動",city:"稲敷郡阿見町",genre:"和菓子",address:"茨城県稲敷郡阿見町吉原578-1",link:"https://www.instagram.com/p/DR8JKlFkxh8/"},
-  {name:"中華そば すずきや",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市上横場2431-5",link:"https://www.instagram.com/p/DR5ocZmExL_/"},
-  {name:"ミヤタクレープ",city:"土浦市",genre:"クレープ",address:"茨城県土浦市中荒川沖町２４−４５",link:"https://www.instagram.com/p/DR1fY2rE8S8/"},
-  {name:"こころを米で結ぶ 結",city:"つくばみらい市",genre:"定食",address:"茨城県つくばみらい市富士見ヶ丘１丁目28番１",link:"https://www.instagram.com/p/DRy6GFuEz_D/"},
-  {name:"SWEETS MARCHE",city:"つくばみらい市",genre:"スイーツ・ケーキ",address:"茨城県つくばみらい市富士見ヶ丘１丁目28番１",link:"https://www.instagram.com/p/DRwRdkKE9Ar/"},
-  {name:"LQPizza",city:"つくばみらい市",genre:"ピザ",address:"茨城県つくばみらい市富士見ヶ丘１丁目28",link:"https://www.instagram.com/p/DRug4TkEyvO/"},
-  {name:"焼き芋 ここの日",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市見和１丁目350",link:"https://www.instagram.com/p/DRMTtmRk-gP/"},
-  {name:"HARUHI",city:"稲敷郡阿見町",genre:"うどん",address:"茨城県稲敷郡阿見町うずら野1丁目10−21",link:"https://www.instagram.com/p/DRJuepwE6s-/"},
-  {name:"ええもん8",city:"水戸市",genre:"たこ焼き",address:"茨城県水戸市千波町２４６７",link:"https://www.instagram.com/p/DRHJmnLE3c5/"},
-  {name:"激辛ラーメン専門店 レッチリ 土浦店",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市川口１丁目１−２７",link:"https://www.instagram.com/p/DRGHio0E4g_/"},
-  {name:"喜多方ラーメン坂内 牛久店",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市神谷６丁目１−２",link:"https://www.instagram.com/p/DREmC8Yk1XC/"},
-  {name:"くじら屋",city:"常陸太田市",genre:"グルメ",address:"茨城県常陸太田市東二町２２２４",link:"https://www.instagram.com/p/ERDjj8PE8FP/"},
-  {name:"パティスリー キャラメリア",city:"水戸市",genre:"スイーツ・ケーキ",address:"茨城県水戸市赤塚１丁目１ ミオスビル 1F",link:"https://www.instagram.com/p/DRB-RGWE-zh/"},
-  {name:"栗夢堂",city:"石岡市",genre:"スイーツ",address:"茨城県石岡市鹿の子２丁目１６−１５",link:"https://www.instagram.com/p/DR9mHXkElRb/"},
-  {name:"麺屋京介",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市大畑８３７−１",link:"https://www.instagram.com/p/DQv-GQdE4a9/"},
-  {name:"菓心 松屋",city:"行方市",genre:"和菓子",address:"茨城県行方市山田３０１０−５",link:"https://www.instagram.com/p/DQgUC6-E8_N/"},
-  {name:"ジェラフル",city:"土浦市",genre:"アイスクリーム",address:"茨城県土浦市上高津３６７",link:"https://www.instagram.com/p/DQd6aonEyEt/"},
-  {name:"クーロンヌつくば",city:"つくば市",genre:"パン",address:"茨城県つくば市松野木１５２−４０",link:"https://www.instagram.com/p/DQbW07zk-lc/"},
-  {name:"Roji菜園テーブル＆夜食堂Roji",city:"つくば市",genre:"定食",address:"茨城県つくば市上ノ室５１６−２",link:"https://www.instagram.com/p/DQYtu6mk2tb/"},
-  {name:"ブーランジェリー アンキュイ",city:"つくば市",genre:"パン",address:"茨城県つくば市稲荷前３３−１",link:"https://www.instagram.com/p/DQWMmtWEwpy/"},
-  {name:"そば茶屋 楽花亭",city:"牛久市",genre:"そば",address:"茨城県牛久市女化町４５１",link:"https://www.instagram.com/p/DQTn2v5E2ia/"},
-  {name:"ラ・ファリーヌ",city:"鹿嶋市",genre:"パン",address:"茨城県鹿嶋市宮中 新町附2038-71",link:"https://www.instagram.com/p/DQQ82XCE53M/"}
+  {name:"ヘルメットピザ",city:"稲敷市",genre:"ピザ",address:"茨城県稲敷市江戸崎みらい６−１",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXlrD6Qk-3d/"},
+  {name:"炭火焼和めし処 しんぱち食堂",city:"土浦市",genre:"定食",address:"茨城県土浦市上高津３６７ イオンモール土浦",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXbcePak_qt/"},
+  {name:"cafe anello",city:"çä¹å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åççä¹å¸ã²ãã¡éè¥¿ï¼ä¸ç®ï¼ï¼âï¼ï¼",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXY2XSQk2XN/"},
+  {name:"åæ¨é³¥",city:"ã¤ãã°å¸",genre:"ã°ã«ã¡",address:"è¨åçã¤ãã°å¸é«éï¼ï¼ï¼ï¼âï¼",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXTqQxuE-ZL/"},
+  {name:"æµå±",city:"åç¸é¦¬é¡å©æ ¹çº",genre:"ãã°",address:"è¨åçåç¸é¦¬é¡å©æ ¹çºæ¨ªé è³ï¼ï¼ï¼ï¼âï¼",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXRGkyskx16/"},
+  {name:"ãã©ãã¿ãªã¦ã ç¼è",city:"ã¤ãã°å¸",genre:"ç¼è",address:"è¨åçã¤ãã°å¸åç¬ï¼ï¼ï¼ï¼âï¼",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXL8nE9E2x7/"},
+  {name:"å¹¸æ¥å ",city:"åæµ¦å¸",genre:"ã«ã¬ã¼",address:"è¨åçåæµ¦å¸å¤§åçºï¼âï¼ï¼",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXJVXh_E9HU/"},
+  {name:"ãã¿ãã¾ã¨ã¼ã°ã«ãã»ã¨ã¼ã°ã«ããã¦ã¹",city:"å°ç¾çå¸",genre:"ã«ãã§",address:"è¨åçå°ç¾çå¸å±±éï¼ï¼ï¼ï¼âï¼ï¼",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DXEPHjpEzSi/"},
+  {name:"ãã¿ãã¾ã­ããã³",city:"å°ç¾çå¸",genre:"ãã¹ã¿ã»ã¤ã¿ãªã¢ã³",address:"è¨åçå°ç¾çå¸å±±éï¼ï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DXBn_1Qk9kF/"},
+  {name:"OwL æ¥æ¬è¶å°éåº&åã«ãã§",city:"ã¤ãã°å¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°å¸äºã®å®®ï¼ä¸ç®14â16",link:"https://www.instagram.com/p/DW_Kc1hE5O0/"},
+  {name:"çå³ ema",city:"æ°´æ¸å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçæ°´æ¸å¸æ«åºçºï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DW8etBmk03e/"},
+  {name:"éººå± ãå¿ã ",city:"åæµ¦å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçåæµ¦å¸ä¸­é«æ´¥ï¼ä¸ç®ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DW56_3Kkw2E/"},
+  {name:"ãããã«ãã§",city:"ã¤ãã°å¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°å¸ä»é¹¿å³¶ï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DW3YGTzk16S/"},
+  {name:"ã»ãããä¸¸",city:"ã¤ãã°å¸",genre:"ãã©ã",address:"è¨åçã¤ãã°å¸é¤¨éï¼âï¼",link:"https://www.instagram.com/p/DW0yzl1k0-s/"},
+  {name:"sois",city:"ç¨²æ·é¡é¿è¦çº",genre:"ã©ã¼ã¡ã³",address:"è¨åçç¨²æ·é¡é¿è¦çºæ¬é·ï¼ä¸ç®2âï¼ï¼",link:"https://www.instagram.com/p/DWyLSKokyQi/"},
+  {name:"PANDA MARKET",city:"æ°´æ¸å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçæ°´æ¸å¸ç¬ åçºï¼ï¼ï¼âï¼ è¨åçåº 25é å±æã­ãã¼",link:"https://www.instagram.com/p/DWvkOOtEziO/"},
+  {name:"ããªãºã ",city:"ã¤ãã°ã¿ããå¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°ã¿ããå¸å¯å£«è¦ã¶ä¸ï¼ä¸ç®ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DWtE_T5k3HB/"},
+  {name:"éç¼ããã£ã¼ã·ã¥ã¼ ãã¼ããåæ¥½",city:"çä¹å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åççä¹å¸ä¸­å¤®ï¼ä¸ç®ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWqdd_XD2g6/"},
+  {name:"ãã­ãããã¼ãã",city:"ã¤ãã°å¸",genre:"ãã¼ãã",address:"è¨åçã¤ãã°å¸å­¦åã®æ£®ï¼ä¸ç®ï¼ï¼",link:"https://www.instagram.com/p/DWn7lAKk0Lw/"},
+  {name:"è¨åè±ãã° ç¹é¾ æ¬åº",city:"ç¨²æ·é¡é¿è¦çº",genre:"ã©ã¼ã¡ã³",address:"è¨åçç¨²æ·é¡é¿è¦çºé¿è¦ï¼ï¼ï¼",link:"https://www.instagram.com/p/DWlSj94kx4y/"},
+  {name:"ã¤ã­ã¤ã­ãã³ã¤ ç©ç©ç© -HOHOHO-",city:"æ°´æ¸å¸",genre:"ãã³",address:"è¨åçæ°´æ¸å¸å çºï¼ï¼ï¼ï¼ 1PatioM106",link:"https://www.instagram.com/p/DWitCSvE-OF/"},
+  {name:"ã©ãã¨ãã¼ãç¥åº§ ã¤ã¼ã¢ã¹ã¤ãã°åº",city:"ã¤ãã°å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçã¤ãã°å¸ç ç©¶å­¦åï¼ä¸ç®ï¼ï¼",link:"https://www.instagram.com/p/DWgJ4Ohk2qq/"},
+  {name:"å¤©ã·ã ä½åå±",city:"é¾ã±å´å¸",genre:"å¤©ã·ã",address:"è¨åçé¾ã±å´å¸ä¹ä¿å°ï¼ä¸ç®7âï¼",link:"https://www.instagram.com/p/DWdjazOE73D/"},
+  {name:"èµåºãç¼ãè ããã¤ã AEONåæµ¦åº",city:"åæµ¦å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçåæµ¦å¸ä¸é«æ´¥ï¼ï¼ï¼ ã¤ãªã³ã¢ã¼ã«åæµ¦1F",link:"https://www.instagram.com/p/DWa8A7Hk0Kv/"},
+  {name:"Les Epices ã¨ãã¹",city:"æ°´æ¸å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçæ°´æ¸å¸ç¬ åçºï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWYaRz8E7sQ/"},
+  {name:"ãã° ãããã¨",city:"ã¤ãã°ã¿ããå¸",genre:"ãã°",address:"è¨åçã¤ãã°ã¿ããå¸é½åå°ï¼ä¸ç®ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWV1MeVE94S/"},
+  {name:"ãããã ãã³ãã",city:"ã¤ãã°å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçã¤ãã°å¸æ¥æ¥ï¼ä¸ç®ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWTRTcCEwiC/"},
+  {name:"ã³ã¼ãã£ã³ãã©ã¼ ã¤ãã°åº",city:"ã¤ãã°å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçã¤ãã°å¸å­¦åã®æ£®ï¼ä¸ç®ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWQuiDCEwRE/"},
+  {name:"Curry & Bake",city:"æ°´æ¸å¸",genre:"ã«ã¬ã¼",address:"è¨åçæ°´æ¸å¸å çºï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWOJXRGkxrT/"},
+  {name:"ã³ã³ããã¨ã³ã¹ã©ããã",city:"ç¥æ å¸",genre:"ã¯ã¬ã¼ã",address:"è¨åçç¥æ å¸å¤§éåï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DWLq6dvEzjG/"},
+  {name:"èå¿ æ¾å±",city:"è¡æ¹å¸",genre:"åèå­",address:"è¨åçè¡æ¹å¸å±±ç°ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWJBSgIExf6/"},
+  {name:"ã©ã»ãã­ã´ã¡ã³ã¹",city:"é¾ç°å¸",genre:"æ´èå­",address:"è¨åçé¾ç°å¸å¡ã±å´ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DWGdHHHk37U/"},
+  {name:"ããã¼ããæ»¿å¸å®¶",city:"çä¹å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åççä¹å¸ã²ãã¡éæ±ï¼ä¸ç®1âï¼",link:"https://www.instagram.com/p/DV-vr6Ak3YS/"},
+  {name:"ææã¡èéº¦å±±ãã",city:"é¾ã±å´å¸",genre:"ãã°",address:"è¨åçé¾ã±å´å¸å§«å®®çº253-1",link:"https://www.instagram.com/p/DV8JS78k-2s/"},
+  {name:"éå½æç ç­ç«ç¼è ãã³ã¢ãª",city:"ã¤ãã°å¸",genre:"éå½æç",address:"è¨åçã¤ãã°å¸å¦»æ¨2100ã¼7",link:"https://www.instagram.com/p/DV5kte-E6p-/"},
+  {name:"éªéç£¨ -ã¹ã¼ãå°éåº-",city:"ç³å²¡å¸",genre:"ã¹ã¼ã",address:"è¨åçç³å²¡å¸å¤§ç ï¼ï¼ï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DV224k3kwMj/"},
+  {name:"ãã³å·¥æ¿ããã¡ããã¡",city:"å°ç¾çå¸",genre:"ãã³",address:"è¨åçå°ç¾çå¸ä¸­å»¶556â1",link:"https://www.instagram.com/p/DV0fd-HE2aq/"},
+  {name:"ã¬ãã¼ã»ãã¼ãªã¢",city:"ã¤ãã°å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçã¤ãã°å¸æ°´å ï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DVx5k5jE-NM/"},
+  {name:"æ¡åãã©ã¹",city:"ç¨²æ·é¡é¿è¦çº",genre:"ã«ã¬ã¼",address:"è¨åçç¨²æ·é¡é¿è¦çºéå®¿ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DVvTy20EzGp/"},
+  {name:"å³åã©ã¼ã¡ã³å±±å²¡å®¶ é¿è¦åº",city:"ç¨²æ·é¡é¿è¦çº",genre:"ã©ã¼ã¡ã³",address:"è¨åçç¨²æ·é¡é¿è¦çºè¥¿é·ï¼ä¸ç®1âï¼",link:"https://www.instagram.com/p/DVsrGdDkz98/"},
+  {name:"ãã¬ã´",city:"åæµ¦å¸",genre:"ã¹ã¼ã",address:"è¨åçåæµ¦å¸å°å²©ç°è¥¿ï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DVqIeldk3e4/"},
+  {name:"ãã¿ããã¯ã¹ã®ã±ãã",city:"ç¥æ å¸",genre:"ã°ã«ã¡",address:"è¨åçç¥æ å¸å¤§éåï¼ä¸ç®ï¼",link:"https://www.instagram.com/p/DVniHEtExgq/"},
+  {name:"ã®ã£ã½",city:"ç¥æ å¸",genre:"ãã¹ã¿ã»ã¤ã¿ãªã¢ã³",address:"è¨åçç¥æ å¸å¤ªç°ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DVk8pp8kwYz/"},
+  {name:"é®ªãããã¨",city:"æ°´æ¸å¸",genre:"å¯¿å¸",address:"è¨åçæ°´æ¸å¸ç±³æ²¢çº600â3",link:"https://www.instagram.com/p/DViVr9pkwxB/"},
+  {name:"ã¢ãã¨ãã¨ã»ãã",city:"æ°´æ¸å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçæ°´æ¸å¸æ±èµ¤å¡2112",link:"https://www.instagram.com/p/DVfwsRUEyys/"},
+  {name:"è«¸å·ååº",city:"æ±è¨åé¡è¨åçº",genre:"ã¹ã¤ã¼ã",address:"è¨åçæ±è¨åé¡è¨åçºé§å ´ï¼ï¼ï¼",link:"https://www.instagram.com/p/DVdaFRJkylS/"},
+  {name:"ãã ãã",city:"æ°´æ¸å¸",genre:"ã°ã«ã¡",address:"è¨åçæ°´æ¸å¸æ¡å·2-4-35",link:"https://www.instagram.com/p/DVaq_XZk5iV/"},
+  {name:"ã«ã«ã±ãã",city:"ç¨²æ·é¡é¿è¦çº",genre:"ã°ã«ã¡",address:"è¨åçç¨²æ·é¡é¿è¦çºä¸­å¤®ï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DVYEdF5k5-r/"},
+  {name:"ãããã®å£å­å±ãã ã§ãç¦",city:"ç¨²æ·å¸",genre:"ã°ã«ã¡",address:"è¨åçç¨²æ·å¸æ²æ¸3",link:"https://www.instagram.com/p/DVVfztlkwkd/"},
+  {name:"æ²¼ç°å±æ¬åº",city:"ã¤ãã°å¸",genre:"ã°ã«ã¡",address:"è¨åçã¤ãã°å¸æ²¼ç°ï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DVS627Ok0vt/"},
+  {name:"BENCH",city:"ã¤ãã°å¸",genre:"ãã³",address:"è¨åçã¤ãã°å¸é¢éäºï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DVQVUJ3k3Sf/"},
+  {name:"ããã£ã¹ãªã¼KOSAI",city:"æ°´æ¸å¸",genre:"æ´èå­",address:"è¨åçæ°´æ¸å¸ååç°çºï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DVNwGVGkyPF/"},
+  {name:"ã©ã¼ã¡ã³ã·ã§ããâ¯å ã¤ãã°åº",city:"ã¤ãã°å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçã¤ãã°å¸å¦»æ¨ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DVLLVHPE59U/"},
+  {name:"ããããå",city:"é¾ã±å´å¸",genre:"åèå­",address:"è¨åçé¾ã±å´å¸å¯ºå¾ï¼ï¼ï¼ï¼âï¼ 1",link:"https://www.instagram.com/p/DVIrag7E15H/"},
+  {name:"ãªã¼ã«ãã¤ã°ãããã¼ã¬ã¼",city:"ç¨²æ·é¡é¿è¦çº",genre:"ãã³ãã¼ã¬ã¼",address:"è¨åçç¨²æ·é¡é¿è¦çºéå®¿ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DVGEXPSE6Tk/"},
+  {name:"èä¹",city:"çä¹å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åççä¹å¸çªå­çºï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DVDdXe1EaLN/"},
+  {name:"ã¤ãã°é£å  è±",city:"ã¤ãã°å¸",genre:"å®é£",address:"è¨åçã¤ãã°å¸ä¸éï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DUsVGXSk-np/"},
+  {name:"ããµããå·¥æ¿Ohana",city:"ç¨²æ·å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçç¨²æ·å¸è§å´ï¼ï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DUptz0Tk5xc/"},
+  {name:"ããããã¢ãã",city:"ããã¿ãããå¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçããã¿ãããå¸ç¨²åï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DUkj231E7Fh/"},
+  {name:"ãã«ãªãã³",city:"åæµ¦å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçåæµ¦å¸ä¸­é«æ´¥ï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DUiO4c8k7x0/"},
+  {name:"éººå±å£±å¿",city:"é¾ã±å´å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçé¾ã±å´å¸åä¸­å³¶çºï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DUfYXPoE84v/"},
+  {name:"å¤æ°å®¶cafeãªãªãã¾ã©",city:"å°ç¾çå¸",genre:"ã«ãã§",address:"è¨åçå°ç¾çå¸ç¾½é³¥1538",link:"https://www.instagram.com/p/DUc1ApuE9uh/"},
+  {name:"ï¼SHEEPï¼ã¢ã³ãã·ã¼ãï¼",city:"ã¤ãã°å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçã¤ãã°å¸æ¡ï¼ä¸ç®39âï¼",link:"https://www.instagram.com/p/DUSnlOYkwx7/"},
+  {name:"ä¸­è¯ãã° æ¥ã¡ãã",city:"ã¤ãã°å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçã¤ãã°å¸åæ¡ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DUP-QbPE-K3/"},
+  {name:"ãããã å¤§éªã½ã¦ã«ãã¼ã ç²ã¨èã¨ã ã",city:"ã¤ãã°å¸",genre:"ããç¼ã",address:"è¨åçã¤ãã°å¸ä¸æ¨ªå ´ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DUNbnkgE2HV/"},
+  {name:"æµ·é®®é£äºå¦ ãããã",city:"å°ç¾çå¸",genre:"æµ·é®®",address:"è¨åçå°ç¾çå¸ä¸­å»¶ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DUK5ifrE6oq/"},
+  {name:"YtoI ããã¨ãã",city:"ç³å²¡å¸",genre:"ãã¼ãã",address:"è¨åçç³å²¡å¸è¨åï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DUITQikE8hw/"},
+  {name:"ã¤ãã°æç©ºã«ãã§",city:"ã¤ãã°å¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°å¸åç¬ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DUFqfRtk_aA/"},
+  {name:"ãæ£èã«ãã³",city:"å®è°·å¸",genre:"å®é£",address:"è¨åçå®è°·å¸ç¾åã±ä¸ï¼ä¸ç®ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DTfDinRE-Kq/"},
+  {name:"GESELLE",city:"å®è°·å¸",genre:"ãã³",address:"è¨åçå®è°·å¸ä¸­å¤®ï¼ä¸ç®ï¼ï¼",link:"https://www.instagram.com/p/DTceIHBExPJ/"},
+  {name:"æå®£åºµ",city:"åæ±å¸",genre:"åé£",address:"è¨åçåæ±å¸ä¸åºå³¶885-1",link:"https://www.instagram.com/p/DTZ47Hvk34n/"},
+  {name:"ãã£ãå§",city:"å®è°·å¸",genre:"ããç¼ã",address:"è¨åçå®è°·å¸é«éï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DTXS9DPExps/"},
+  {name:"ãã¡ãå®¶ã®ãã®ã",city:"ç³å²¡å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçç³å²¡å¸å°å¹¡ï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DTUuECkEz9j/"},
+  {name:"èªå®¶è£½éººã¤ããã°ä¹å­",city:"ã¤ãã°ã¿ããå¸",genre:"ãã°",address:"è¨åçã¤ãã°ã¿ããå¸çµ¹ã®å°ï¼ä¸ç®14âï¼",link:"https://www.instagram.com/p/DTNDoFEE-hA/"},
+  {name:"ããã²ãã¯ãã ããã·",city:"ã¤ãã°å¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°å¸å¤©ä¹ä¿ï¼ä¸ç®ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DTKf28VEwl-/"},
+  {name:"ããããã&Co.",city:"ç¨²æ·å¸",genre:"ããç¼ã",address:"è¨åçç¨²æ·å¸ç¬å¡ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DTFRjgxEwMQ/"},
+  {name:"èµæ¥å",city:"ã¤ãã°å¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°å¸éç°ï¼ï¼âï¼",link:"https://www.instagram.com/p/DU7w3Nzk-2p/"},
+  {name:"éººå±äº¬ä»",city:"åæµ¦å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçåæµ¦å¸å¤§çï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DU5Lc0Kk7sL/"},
+  {name:"ç¼ãèå°éåº èãã",city:"åæµ¦å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçåæµ¦å¸æ²æ°ç°ï¼",link:"https://www.instagram.com/p/DU0CgGPE73-/"},
+  {name:"é®¨ããã®",city:"å¸¸ç·å¸",genre:"å¯¿å¸",address:"è¨åçå¸¸ç·å¸å°ä¿å·ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DUxa89fE9ix/"},
+  {name:"ãã¼ãè±å¯ã»æ¹¯æ³¢å°éåºã¾ãä¹å®¶",city:"ã¤ãã°å¸",genre:"å®é£",address:"è¨åçã¤ãã°å¸æä»£æ¨ï¼ï¼ï¼âï¼",link:"https://www.imstagram.com/p/DUu3Y49k4Am/"},
+  {name:"å³ ã®ã¯ãã¿ã³",city:"æ½®æ¥å¸",genre:"ããç¼ã",address:"è¨åçæ½®æ¥å¸ç¯å°ï¼ï¼ï¼",link:"https://www.instagram.com/p/DT4xGygkw0G/"},
+  {name:"ãã½ã£ã½ãªããããã¡ã¼ãã¼ãºã´ã£ã¬ãã¸",city:"è¡æ¹å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçè¡æ¹å¸å®å´ï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DT2LG06E5V9/"},
+  {name:"ããã¡ããã®ããã¤",city:"ã¤ãã°å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçã¤ãã°å¸æä»£æ¨ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DTxDizDkwmB/"},
+  {name:"å¨ä¹é·",city:"æ°´æ¸å¸",genre:"åé£",address:"è¨åçæ°´æ¸å¸åæ±ï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DTv6HJXE7Zr/"},
+  {name:"ããã´",city:"ã¤ãã°ã¿ããå¸",genre:"æµ·é®®",address:"è¨åçã¤ãã°ã¿ããå¸çµ¹ã®å°ï¼ä¸ç®4â8",link:"https://www.instagram.com/p/DSPOV0rEyO5/"},
+  {name:"ããªã¸ã§ã©ã¼ã",city:"å®è°·å¸",genre:"ã¢ã¤ã¹ã¯ãªã¼ã ",address:"è¨åçå®è°·å¸å¤§æï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DSMqUi-k_7t/"},
+  {name:"ããã¾ã¨ãã§ã³ã¬ã¼ãå·¥å ´",city:"ç¬ éå¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçç¬ éå¸ç¬ é984-1",link:"https://www.instagram.com/p/DSLpEKNk2kw/"},
+  {name:"é³¥ã®æµ· ã¤ãã°åº",city:"ã¤ãã°å¸",genre:"ãã¥ããã§ã»é£ã¹æ¾é¡",address:"è¨åçã¤ãã°å¸ç ç©¶å­¦åï¼ä¸ç®2âï¼ï¼",link:"https://www.instagram.com/p/DSKJR-5kzrp/"},
+  {name:"ã ãã¨ããã©ã ã¾ã¤ãã",city:"å®è°·å¸",genre:"ãã©ã",address:"è¨åçå®è°·å¸æ¿æ¸äºï¼ï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DSE4Sx1E6NK/"},
+  {name:"ä¼å¢å±",city:"åæå¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçåæå¸æ°çºï¼ä¸ç®ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DSCVoyhk2sB/"},
+  {name:"é¶ã",city:"ã¤ãã°å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçã¤ãã°å¸å¤©ä¹ä¿ï¼ä¸ç®8â1",link:"https://www.instagram.com/p/DS_yuHjk3Ax/"},
+  {name:"éººå± éå¿",city:"åæµ¦å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçåæµ¦å¸ä¸­æè¥¿æ ¹ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DSUWbjsk09d/"},
+  {name:"ãèå­ã®åº ã¡ã¼ãã«",city:"å®è°·å¸",genre:"æ´èå­",address:"è¨åçå®è°·å¸æ¾åå°1ä¸ç®16âï¼",link:"https://www.instagram.com/p/DSRy22KE1tV/"},
+  {name:"ãããã",city:"ç³å²¡å¸",genre:"å¤©ã·ã",address:"è¨åçç³å²¡å¸æ­å°ï¼ä¸ç®ï¼âï¼",link:"https://www.instagram.com/p/DSo9Henk6Yu/"},
+  {name:"ç³çª¯ãã³å·¥æ¿ ã«ã³ãã¼ãã¥",city:"æ°´æ¸å¸",genre:"ãã³",address:"è¨åçæ°´æ¸å¸æ²³åç°çºï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DSmbj6Pk0Wb/"},
+  {name:"ã©ã»ãã©ã³ã¸ã§ã»ãµãã¼",city:"æ°´æ¸å¸",genre:"ãã³",address:"è¨åçæ°´æ¸å¸ç±³æ²¢çº364âï¼",link:"https://www.instagram.com/p/DSjzRbUE4S-/"},
+  {name:"ã³ã¼ãã£ã³ãã©ã¼ã¤ãã°åº",city:"ã¤ãã°å¸",genre:"ã¢ã¤ã¹ã¯ãªã¼ã ",address:"è¨åçã¤ãã°å¸å­¦åã®æ£®ï¼ä¸ç®ï¼ï¼âï¼",link:"https://www.instagram.com/p/DShVWeIE6lX/"},
+  {name:"é­æçã²ãã",city:"ã¤ãã°å¸",genre:"æµ·é®®",address:"è¨åçã¤ãã°å¸ä¸é·ï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DSgOuGCkxkd/"},
+  {name:"ç´è±DOG",city:"ç¬ éå¸",genre:"ã°ã«ã¡",address:"è¨åçç¬ éå¸é·åè·¯ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DSetZfPE8-u/"},
+  {name:"ã¯ã£ãããçºéµã¨ãç±³ã®ãåº",city:"ã¤ãã°å¸",genre:"ã«ãã§",address:"è¨åçã¤ãã°å¸æµæå°ï¼ï¼âï¼ 1F",link:"https://www.instagram.com/p/DSdsdFIk18f/"},
+  {name:"åé¨ããããç¼ã",city:"ç¬ éå¸",genre:"åèå­",address:"è¨åçç¬ éå¸é·åè·¯ï¼ï¼ï¼ï¼âï¼ å¸¸ç£èªåè»éä¸ãç·åé¨SAå",link:"https://www.instagram.com/p/DSbYQ6CkrVm/"},
+  {name:"å¤§å¤ç¼ãä¸å",city:"ç¨²æ·é¡é¿è¦çº",genre:"åèå­",address:"è¨åçç¨²æ·é¡é¿è¦çºåå578-1",link:"https://www.instagram.com/p/DR8JKlFkxh8/"},
+  {name:"ä¸­è¯ãã° ãããã",city:"ã¤ãã°å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçã¤ãã°å¸ä¸æ¨ªå ´2431-5",link:"https://www.instagram.com/p/DR5ocZmExL_/"},
+  {name:"ãã¤ã¿ã¯ã¬ã¼ã",city:"åæµ¦å¸",genre:"ã¯ã¬ã¼ã",address:"è¨åçåæµ¦å¸ä¸­èå·æ²çºï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DR1fY2rE8S8/"},
+  {name:"ããããç±³ã§çµã¶ çµ",city:"ã¤ãã°ã¿ããå¸",genre:"å®é£",address:"è¨åçã¤ãã°ã¿ããå¸å¯å£«è¦ã¶ä¸ï¼ä¸ç®28çªï¼",link:"https://www.instagram.com/p/DRy6GFuEz_D/"},
+  {name:"SWEETS MARCHE",city:"ã¤ãã°ã¿ããå¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçã¤ãã°ã¿ããå¸å¯å£«è¦ã¶ä¸ï¼ä¸ç®28çªï¼",link:"https://www.instagram.com/p/DRwRdkKE9Ar/"},
+  {name:"LQPizza",city:"ã¤ãã°ã¿ããå¸",genre:"ãã¶",address:"è¨åçã¤ãã°ã¿ããå¸å¯å£«è¦ã¶ä¸ï¼ä¸ç®28",link:"https://www.instagram.com/p/DRug4TkEyvO/"},
+  {name:"ç¼ãè ããã®æ¥",city:"æ°´æ¸å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçæ°´æ¸å¸è¦åï¼ä¸ç®350",link:"https://www.instagram.com/p/DRMTtmRk-gP/"},
+  {name:"HARUHI",city:"ç¨²æ·é¡é¿è¦çº",genre:"ãã©ã",address:"è¨åçç¨²æ·é¡é¿è¦çºãããé1ä¸ç®10â21",link:"https://www.instagram.com/p/DRJuepwE6s-/"},
+  {name:"ãããã8",city:"æ°´æ¸å¸",genre:"ããç¼ã",address:"è¨åçæ°´æ¸å¸åæ³¢çºï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/DRHJmnLE3c5/"},
+  {name:"æ¿è¾ã©ã¼ã¡ã³å°éåº ã¬ãããª åæµ¦åº",city:"åæµ¦å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçåæµ¦å¸å·å£ï¼ä¸ç®ï¼âï¼ï¼",link:"https://www.instagram.com/p/DRGHio0E4g_/"},
+  {name:"åå¤æ¹ã©ã¼ã¡ã³åå çä¹åº",city:"çä¹å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åççä¹å¸ç¥è°·ï¼ä¸ç®ï¼âï¼",link:"https://www.instagram.com/p/DREmC8Yk1XC/"},
+  {name:"ãããå±",city:"å¸¸é¸å¤ªç°å¸",genre:"ã°ã«ã¡",address:"è¨åçå¸¸é¸å¤ªç°å¸æ±äºçºï¼ï¼ï¼ï¼",link:"https://www.instagram.com/p/ERDjj8PE8FP/"},
+  {name:"ããã£ã¹ãªã¼ ã­ã£ã©ã¡ãªã¢",city:"æ°´æ¸å¸",genre:"ã¹ã¤ã¼ãã»ã±ã¼ã­",address:"è¨åçæ°´æ¸å¸èµ¤å¡ï¼ä¸ç®ï¼ ããªã¹ãã« 1F",link:"https://www.instagram.com/p/DRB-RGWE-zh/"},
+  {name:"æ å¤¢å ",city:"ç³å²¡å¸",genre:"ã¹ã¤ã¼ã",address:"è¨åçç³å²¡å¸é¹¿ã®å­ï¼ä¸ç®ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DR9mHXkElRb/"},
+  {name:"éººå±äº¬ä»",city:"åæµ¦å¸",genre:"ã©ã¼ã¡ã³",address:"è¨åçåæµ¦å¸å¤§çï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DQv-GQdE4a9/"},
+  {name:"èå¿ æ¾å±",city:"è¡æ¹å¸",genre:"åèå­",address:"è¨åçè¡æ¹å¸å±±ç°ï¼ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DQgUC6-E8_N/"},
+  {name:"ã¸ã§ã©ãã«",city:"åæµ¦å¸",genre:"ã¢ã¤ã¹ã¯ãªã¼ã ",address:"è¨åçåæµ¦å¸ä¸é«æ´¥ï¼ï¼ï¼",link:"https://www.instagram.com/p/DQd6aonEyEt/"},
+  {name:"ã¯ã¼ã­ã³ãã¤ãã°",city:"ã¤ãã°å¸",genre:"ãã³",address:"è¨åçã¤ãã°å¸æ¾éæ¨ï¼ï¼ï¼âï¼ï¼",link:"https://www.instagram.com/p/DQbW07zk-lc/"},
+  {name:"Rojièåãã¼ãã«ï¼å¤é£å Roji",city:"ã¤ãã°å¸",genre:"å®é£",address:"è¨åçã¤ãã°å¸ä¸ãå®¤ï¼ï¼ï¼âï¼",link:"https://www.instagram.com/p/DQYtu6mk2tb/"},
+  {name:"ãã¼ã©ã³ã¸ã§ãªã¼ ã¢ã³ã­ã¥ã¤",city:"ã¤ãã°å¸",genre:"ãã³",address:"è¨åçã¤ãã°å¸ç¨²è·åï¼ï¼âï¼",link:"https://www.instagram.com/p/DQWMmtWEwpy/"},
+  {name:"ãã°è¶å± æ¥½è±äº­",city:"çä¹å¸",genre:"ãã°",address:"è¨åççä¹å¸å¥³åçºï¼ï¼ï¼",link:"https://www.instagram.com/p/DQTn2v5E2ia/"},
+  {name:"ã©ã»ãã¡ãªã¼ã",city:"é¹¿å¶å¸",genre:"ãã³",address:"è¨åçé¹¿å¶å¸å®®ä¸­ æ°çºé2038-71",link:"https://www.instagram.com/p/DQQ82XCE53M/"}
 ];
 
 // =====================================================
-// データ管理（localStorageで永続化）
+// ãã¼ã¿ç®¡çï¼localStorageã§æ°¸ç¶åï¼
 // =====================================================
 function loadStores() {
   try {
@@ -561,14 +563,14 @@ let stores = loadStores();
 let selectedCities = new Set();
 
 // =====================================================
-// フィルタ用オプション生成
+// ãã£ã«ã¿ç¨ãªãã·ã§ã³çæ
 // =====================================================
 function buildFilters() {
   const genres = [...new Set(stores.map(s => s.genre))].sort();
 
   const genreEl = document.getElementById('genreFilter');
   const curGenre = genreEl.value;
-  genreEl.innerHTML = '<option value="">🍽 ジャンル すぽて</option>';
+  genreEl.innerHTML = '<option value="">ð½ ã¸ã£ã³ã« ãã½ã¦</option>';
   genres.forEach(g => {
     const o = document.createElement('option');
     o.value = g; o.textContent = g;
@@ -578,7 +580,7 @@ function buildFilters() {
 }
 
 // =====================================================
-// カード描画
+// ã«ã¼ãæç»
 // =====================================================
 function render() {
   const q = document.getElementById('q').value.trim().toLowerCase();
@@ -593,9 +595,9 @@ function render() {
   });
 
   document.getElementById('count').innerHTML =
-    `全 <b>${stores.length}</b> 件中 <b>${filtered.length}</b> 件表示`;
+    `å¨ <b>${stores.length}</b> ä»¶ä¸­ <b>${filtered.length}</b> ä»¶è¡¨ç¤º`;
 
-  // チップのアクティブ状態を同期
+  // ãããã®ã¢ã¯ãã£ãç¶æãåæ
   document.querySelectorAll('.city-chip').forEach(b => {
     const cityName = b.dataset.city;
     if (selectedCities.has(cityName)) b.classList.add('active');
@@ -616,20 +618,20 @@ function render() {
     <div class="card">
       <div class="card-top">
         <div class="card-name">${esc(s.name)}</div>
-        <span class="card-genre">🍴 ${esc(s.memo || s.genre)}</span>
+        <span class="card-genre">ð´ ${esc(s.memo || s.genre)}</span>
       </div>
       <div class="card-body">
         <div class="card-row">
-          <span class="icon">📍</span>
+          <span class="icon">ð</span>
           <span class="text"><span class="city-tag">${esc(s.city)}</span></span>
         </div>
         ${s.address ? `
         <div class="card-row">
-          <span class="icon">🏠</span>
+          <span class="icon">ð </span>
           <span class="text">${esc(s.address)}</span>
         </div>` : ''}
         <a class="card-link" href="${esc(s.link)}" target="_blank" rel="noopener">
-          📷 Instagramで投稿を見る
+          ð· Instagramã§æç¨¿ãè¦ã
         </a>
         <div style="text-align:center;font-size:0.78rem;color:#aaa;margin-top:4px;">@${esc(s.account || 'ibaraki_yossy')}</div>
       </div>
@@ -643,7 +645,7 @@ function esc(str) {
 }
 
 // =====================================================
-// リセット
+// ãªã»ãã
 // =====================================================
 function resetFilters() {
   document.getElementById('q').value = '';
@@ -653,12 +655,12 @@ function resetFilters() {
 }
 
 // =====================================================
-// パネルトグル
+// ããã«ãã°ã«
 // =====================================================
 function togglePanel(id, btn) {
   const panel = document.getElementById(id);
   const isOpen = panel.classList.contains('open');
-  // 全パネル閉じる
+  // å¨ããã«éãã
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.btn-toggle').forEach(b => b.classList.remove('active'));
   if (!isOpen) {
@@ -668,7 +670,7 @@ function togglePanel(id, btn) {
 }
 
 // =====================================================
-// 店舗追加
+// åºèè¿½å 
 // =====================================================
 function addStore() {
   const name = document.getElementById('f_name').value.trim();
@@ -680,7 +682,7 @@ function addStore() {
   const link = document.getElementById('f_link').value.trim();
 
   if (!name || !city || !genre) {
-    showToast('⚠ 店名・市町村・ジャンルは必須です');
+    showToast('â  åºåã»å¸çºæã»ã¸ã£ã³ã«ã¯å¿é ã§ã');
     return;
   }
 
@@ -690,24 +692,24 @@ function addStore() {
   buildCityChips();
   render();
 
-  // フォームリセット
+  // ãã©ã¼ã ãªã»ãã
   ['f_name','f_city','f_genre','f_memo','f_address','f_account','f_link'].forEach(id => {
     document.getElementById(id).value = '';
   });
 
-  showToast(`✅ 「${name}」を追加しました`);
+  showToast(`â ã${name}ããè¿½å ãã¾ãã`);
 }
 
 // =====================================================
-// CSVインポート
+// CSVã¤ã³ãã¼ã
 // =====================================================
 function importCSV() {
   const raw = document.getElementById('csvText').value.trim();
-  if (!raw) { showToast('⚠ CSVデータがありません'); return; }
+  if (!raw) { showToast('â  CSVãã¼ã¿ãããã¾ãã'); return; }
 
   const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  // 1行目がヘッダーかチェック
-  const start = lines[0].toLowerCase().includes('店名') || lines[0].toLowerCase().includes('name') ? 1 : 0;
+  // 1è¡ç®ããããã¼ããã§ãã¯
+  const start = lines[0].toLowerCase().includes('åºå') || lines[0].toLowerCase().includes('name') ? 1 : 0;
 
   let added = 0;
   for (let i = start; i < lines.length; i++) {
@@ -725,21 +727,21 @@ function importCSV() {
     added++;
   }
 
-  if (added === 0) { showToast('⚠ 追加できるデータがありませんでした'); return; }
+  if (added === 0) { showToast('â  è¿½å ã§ãããã¼ã¿ãããã¾ããã§ãã'); return; }
 
   saveStores(stores);
   buildFilters();
   buildCityChips();
   render();
   document.getElementById('csvText').value = '';
-  showToast(`✅ ${added}件追加しました`);
+  showToast(`â ${added}ä»¶è¿½å ãã¾ãã`);
 }
 
 // =====================================================
-// CSVエクスポート
+// CSVã¨ã¯ã¹ãã¼ã
 // =====================================================
 function exportCSV() {
-  const header = '店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク';
+  const header = 'åºå,å¸çºæ,ã¸ã£ã³ã«,è©³ç´°,ä½æ,æç¨¿è,Instagramãªã³ã¯';
   const rows = stores.map(s =>
     [s.name, s.city, s.genre, s.memo || '', s.address || '', s.account || 'ibaraki_yossy', s.link || ''].map(v => `"${v}"`).join(',')
   );
@@ -751,20 +753,20 @@ function exportCSV() {
   a.download = 'ibaraki_yossy_stores.csv';
   a.click();
   URL.revokeObjectURL(url);
-  showToast('📤 CSVをダウンロードしました');
+  showToast('ð¤ CSVããã¦ã³ã­ã¼ããã¾ãã');
 }
 
-// テンプレート表示
+// ãã³ãã¬ã¼ãè¡¨ç¤º
 function showCSVTemplate() {
   document.getElementById('csvText').value =
-`店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク
-例：麺と雫,水戸市,ラーメン,トンコツ,茨城県水戸市〇〇,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
-例：三日月,ひたちなか市,カフェ,,茨城県ひたちなか市〇〇,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
-  showToast('📄 テンプレートを表示しました');
+`åºå,å¸çºæ,ã¸ã£ã³ã«,è©³ç´°,ä½æ,æç¨¿è,Instagramãªã³ã¯
+ä¾ï¼éººã¨é«,æ°´æ¸å¸,ã©ã¼ã¡ã³,ãã³ã³ã,è¨åçæ°´æ¸å¸ãã,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
+ä¾ï¼ä¸æ¥æ,ã²ãã¡ãªãå¸,ã«ãã§,,è¨åçã²ãã¡ãªãå¸ãã,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
+  showToast('ð ãã³ãã¬ã¼ããè¡¨ç¤ºãã¾ãã');
 }
 
 // =====================================================
-// トースト通知
+// ãã¼ã¹ãéç¥
 // =====================================================
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -774,10 +776,10 @@ function showToast(msg) {
 }
 
 // =====================================================
-// 市町村クイックフィルターチップ
+// å¸çºæã¯ã¤ãã¯ãã£ã«ã¿ã¼ããã
 // =====================================================
 function buildCityChips() {
-  const priority = ['牛久市', '土浦市', 'つくば市'];
+  const priority = ['çä¹å¸', 'åæµ¦å¸', 'ã¤ãã°å¸'];
   const others = [...new Set(stores.map(s => s.city))]
     .filter(c => !priority.includes(c)).sort();
   const cities = [...priority, ...others];
@@ -804,7 +806,7 @@ function quickCity(city, btn) {
 }
 
 // =====================================================
-// 初期化
+// åæå
 // =====================================================
 buildFilters();
 buildCityChips();
