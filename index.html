@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>茨城グルメよっしー 店舗検索ツール</title>
+  <title>茨城グルメ店舗検索</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -262,7 +262,7 @@
     }
     @media (max-width: 500px) { .form-grid { grid-template-columns: 1fr; } }
     .form-grid input, .form-grid select {
-      width: 100%;
+  	   width: 100%;
       padding: 9px 12px;
       border: 1.5px solid #ddd;
       border-radius: 8px;
@@ -343,11 +343,8 @@
 
 <header>
   <div class="ig-icon">📸</div>
-  <h1>茨城グルメよっしー 店舗検索</h1>
+  <h1>茨城グルメ店舗検索</h1>
   <p>茨城県内の美味しいグルメ情報をまとめて検索</p>
-  <a class="ig-link" href="https://www.instagram.com/ibaraki_yossy/" target="_blank" rel="noopener">
-    📷 @ibaraki_yossy をフォロー
-  </a>
 </header>
 
 <div class="search-wrap">
@@ -415,6 +412,37 @@
 // 初期データ（ibaraki_yossyアカウントの投稿より収集）
 // =====================================================
 const DEFAULT_STORES = [
+  {name:"一筋たっc��り庵 ひたちなか店",city:"ひたちなか市",genre:"和菓子",address:"茨城県ひたちなか市新光町34-1",account:"ibaraki_suni",link:"https://www.instagram.com/p/DX_olAPGQvP/?img_index=1"},
+  {name:"エノテカ ドォーロ プレミオ",city:"稲敷郡阿見町",genre:"パスタ・イタリアン",address:"茨城県稲敷郡阿見町よしわら４丁目１−１",account:"ibaraki_suni",link:"https://www.instagram.com/p/DX6SpZXMABx/"},
+  {name:"鳥すき",city:"つくば市",genre:"そば",address:"茨城県つくば市研究学園５丁目5−３ 2号室",account:"ibaraki_suni",link:"https://www.instagram.com/p/DX3wOaVsoyv/"},
+  {name:"フィッシングパークつくば園",city:"石岡市",genre:"そば",address:"茨城県石岡市小幡２１１９−３３",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXyyAvNs9w9/"},
+  {name:"びっくり焼亭 鉄板焼 吉沼店",city:"水戸市",genre:"グルメ",address:"茨城県水戸市吉沼町556-1",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXwAXsFMlBG/"},
+  {name:"麺屋 荒井",city:"水戸市",genre:"ラーメン",address:"茨城県水戸市元吉田町１４８６−５",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXtcDfQjCCz/"},
+  {name:"だんごのたかの つくば店",city:"つくば市",genre:"和菓子",address:"茨城県つくば市西平塚３３７−１",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXlqWeqjFm9/"},
+  {name:"活龍 海老蟹専門 甲殻堂",city:"つくば市",genre:"海鮮",address:"茨城県つくば市筑穂１丁目１０−１３",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXYx2hnkwcP/?img_index=1"},
+  {name:"豊栄丸",city:"鹿嶋市",genre:"海鮮",address:"茨城県鹿嶋市宮中1-1-2",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXTiUM9jPvC/"},
+  {name:"麺や燦虎",city:"石岡市",genre:"ラーメン",address:"茨城県石岡市鹿の子1丁目14-17",account:"ibaraki_suni",link:"https://www.instagram.com/p/DXEL3QWjAq8/"},
+  {name:"つけ汁家 安曇野",city:"土浦市",genre:"ラーメン",address:"茨城県土浦市荒川沖東2丁目13-50",account:"ibaraki_suni",link:"https://www.instagram.com/p/DW8crRVjFa-/"},
+  {name:"益益 那珂店",city:"那珂市",genre:"パスタ・イタリアン",address:"茨城県那珂市竹ノ内１丁目２５−９",account:"ibaraki_suni",link:"https://www.instagram.com/p/DW3TstqDAKF/"},
+  {name:"麺屋 つばき亭 古河旭町125店",city:"古河市",genre:"ラーメン",address:"茨城県古河市旭町２丁目１２−３１",account:"ibaraki_suni",link:"https://www.instagram.com/p/DW00MOvjFpb/"},
+  {name:"お芋屋さんのお店 サンパタータ",city:"かすみがうら市",genre:"スイーツ・ケーキ",address:"茨城県かすみがうら市深谷６１−２４",account:"ibaraki_suni",link:"https://www.instagram.com/p/DWtDFytjHUC/"},
+  {name:"麺屋 荒井",city:"水戸市",genre:"ラーメン",address:"茨城県水戸市元吉田町１４８６−５",account:"ibaraki_suni",link:"https://www.instagram.com/p/DWTUFm0FH-5/?img_index=1"},
+  {name:"一筋たっぷり庵 ひたちなか店",city:"ひたちなか市",genre:"和菓子",address:"茨城県ひたちなか市新光町34-1",account:"ibaraki_suni",link:"https://www.instagram.com/p/DWDzgCRjDN8/"},
+  {name:"トラットリア・チンクエチェント",city:"鹿嶋市",genre:"パスタ・イタリアン",address:"茨城県鹿嶋市神野２丁目３−１１",account:"ibaraki_suni",link:"https://www.instagram.com/p/DV5nJzgjL59/"},
+  {name:"Ole BRASiL",city:"神栖市",genre:"ハンバーガー",address:"茨城県神栖市知手中央３丁目５−１０",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVniZfEjD6U/"},
+  {name:"活龍 海老蟹専門 甲殻堂",city:"つくば市",genre:"海鮮",address:"茨城県つくば市筑穂１丁目１０−１３",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVfxgVwDMCi/"},
+  {name:"麺屋 荒井",city:"水戸市",genre:"ラーメン",address:"茨城県水戸市元吉田町１４８６−５",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVdRRThkzGV/"},
+  {name:"餐粉の励",city:"ひたちなか市",genre:"天ぷら",address:"茨城県ひたちなか市田彦１１１６−３０",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVasQnTk6I4/"},
+  {name:"Bistro grâce",city:"水戸市",genre:"グルメ",address:"茨城県水戸市南町３丁目４−６７",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVS5_flk3PY/"},
+  {name:"福軒餃子",city:"つくば市",genre:"定食",address:"茨城県つくば市天久保３丁目１１−１８",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVNxDskEzFu/"},
+  {name:"寿し まる。",city:"ひたちなか市",genre:"寿司",address:"茨城県ひたちなか市泉町14-3",account:"ibaraki_suni",link:"https://www.instagram.com/p/DVBBt5SE0_P/"},
+  {name:"PISOLA水戸河和田店",city:"水戸市",genre:"ビュッフェ・食べ放題",address:"茨城県水戸市河和田町３８２９−２",account:"ibaraki_suni",link:"https://www.instagram.com/p/DUz_UOok16M/"},
+  {name:"さんぴ",city:"つくばみらい市",genre:"海鮮",address:"茨城県つくばみらい市絹の台２丁目4−８",account:"ibaraki_suni",link:"https://www.instagram.com/p/DUu2kpMkwi_/"},
+  {name:"らぁ麺ふじ田",city:"水戸市",genre:"ラーメン",address:"茨城県水戸市城南1丁目7-2",account:"ibaraki_suni",link:"https://www.instagram.com/p/DUsaOU8k890/"},
+  {name:"鳥すき 研究学園駅店",city:"つくば市",genre:"グルメ",address:"茨城県つくば市研究学園５丁目5−３ 2号室",account:"ibaraki_suni",link:"https://www.instagram.com/p/DUmwGsdExnh/"},
+  {name:"おおわだ商店",city:"那珂市",genre:"グルメ",address:"茨城県那珂市菅谷３５７８−４",account:"ibaraki_suni",link:"https://www.instagram.com/p/DUkhS6ak72y/"},
+  {name:"中華そば かもまる",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町中郷2丁目8-8",account:"ibaraki_suni",link:"https://www.instagram.com/p/DUfU9j5E27x/"},
+
   {name:"はりけんラーメン 本店",city:"つくば市",genre:"そば",address:"茨城県つくば市栗原２８５７−８",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DYEmj0kzhaz/"},
   {name:"焼肉ハウス しょうや",city:"牛久市",genre:"焼肉",address:"茨城県牛久市上柏田２丁目４３−３",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DYB_3vlTch4/"},
   {name:"二葉寿司",city:"鉾田市",genre:"寿司",address:"茨城県鉾田市台濁沢４０８",account:"ibaraki_yossy",link:"https://www.instagram.com/p/DX_eZPoz24C/"},
@@ -466,7 +494,7 @@ const DEFAULT_STORES = [
   {name:"ほうずき丸",city:"つくば市",genre:"うどん",address:"茨城県つくば市館野５−１",link:"https://www.instagram.com/p/DW0yzl1k0-s/"},
   {name:"sois",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町本郷３丁目2−１３",link:"https://www.instagram.com/p/DWyLSKokyQi/"},
   {name:"PANDA MARKET",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市笠原町９７８−６ 茨城県庁 25階 展望ロビー",link:"https://www.instagram.com/p/DWvkOOtEziO/"},
-  {name:"プリズム",city:"つくばみらい市",genre:"カフェ",address:"茨城県つくばみらい市富士見ヶ丘１丁目１３−１７",link:"https://www.instagram.com/p/DWtE_T5k3HB/"},
+  {name:"プリズム",city:"つくばみらい市",genre:"カフェ",address:"茨城県つくばみらい市富士見ヶ丘１丁目１３−１７",link:"https://www.instagram.com/p/DVtE_T5k3HB/"},
   {name:"釜焼きチャーシュー らーめん喜楽",city:"牛久市",genre:"ラーメン",address:"茨城県牛久市中央３丁目１６−１",link:"https://www.instagram.com/p/DWqdd_XD2g6/"},
   {name:"トロッポドーナツ",city:"つくば市",genre:"ドーナツ",address:"茨城県つくば市学園の森３丁目４４",link:"https://www.instagram.com/p/DWn7lAKk0Lw/"},
   {name:"茨城豚そば 特龍 本店",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町阿見６００",link:"https://www.instagram.com/p/DWlSj94kx4y/"},
@@ -491,8 +519,7 @@ const DEFAULT_STORES = [
   {name:"桜坂テラス",city:"稲敷郡阿見町",genre:"カレー",address:"茨城県稲敷郡阿見町青宿３６８−２",link:"https://www.instagram.com/p/DVvTy20EzGp/"},
   {name:"味噌ラーメン山岡家 阿見店",city:"稲敷郡阿見町",genre:"ラーメン",address:"茨城県稲敷郡阿見町西郷３丁目1−７",link:"https://www.instagram.com/p/DVsrGdDkz98/"},
   {name:"プレゴ",city:"土浦市",genre:"スープ",address:"茨城県土浦市小岩田西１丁目１−１１",link:"https://www.instagram.com/p/DVqIeldk3e4/"},
-  {name:"ピタマックスのケバブ",city:"神栖市",genre:"グルメ",address:"茨城県神栖市大野原５丁目５",link:"https://www.instagram.com/p/DVniHEtExgq/"},
-  {name:"のっぽ",city:"神栖市",genre:"パスタ・イタリアン",address:"茨城県神栖市太田３１２５−３",link:"https://www.instagram.com/p/DVk8pp8kwYz/"},
+  {name:"ピタマックスのケバブ",city:"神栖市",genre:"グルメ",address:"茨城県神栖市大野原５丁目５�[�Έ�΋����˚[��Yܘ[K���K����R]^�KȟK�ۘ[YN���k��h��e���]N���g��%�n ���[��N����x�タ・イタリアン",address:"茨城県神栖市太田３１２５−３",link:"https://www.instagram.com/p/DVk8pp8kwYz/"},
   {name:"鮪たけもと",city:"水戸市",genre:"寿司",address:"茨城県水戸市米沢町600−3",link:"https://www.instagram.com/p/DViVr9pkwxB/"},
   {name:"アヌエヌエ・ポノ",city:"水戸市",genre:"スイーツ",address:"茨城県水戸市東赤塚2112",link:"https://www.instagram.com/p/DVfwsRUEyys/"},
   {name:"諸川商店",city:"東茨城郡茨城町",genre:"スイーツ",address:"茨城県東茨城郡茨城町駒場２２０",link:"https://www.instagram.com/p/DVdaFRJkylS/"},
@@ -511,7 +538,7 @@ const DEFAULT_STORES = [
   {name:"やきいもアミナ",city:"かすみがうら市",genre:"スイーツ",address:"茨城県かすみがうら市稲吉２丁目５−１１",link:"https://www.instagram.com/p/DUkj231E7Fh/"},
   {name:"ミルリトン",city:"土浦市",genre:"スイーツ・ケーキ",address:"茨城県土浦市中高津２丁目４−１３",link:"https://www.instagram.com/p/DUiO4c8k7x0/"},
   {name:"麺屋壱心",city:"龍ケ崎市",genre:"ラーメン",address:"茨城県龍ケ崎市南中島町６８−１２",link:"https://www.instagram.com/p/DUfYXPoE84v/"},
-  {name:"古民家cafeななかまど",city:"小美玉市",genre:"カフェ",address:"茨城県小美玉市羽鳥1538",link:"https://www.instagram.com/p/DUc1ApuE9uh/"},
+  {name:"古民家cafeななかみど",city:"小美玉市",genre:"カフェ",address:"茨城県小美玉市羽鳥1538",link:"https://www.instagram.com/p/DUc1ApuE9uh/"},
   {name:"＆SHEEP（アンドシープ）",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市桜２丁目39−１",link:"https://www.instagram.com/p/DUSnlOYkwx7/"},
   {name:"中華そば 春ちゃん",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市北条５０４３−８",link:"https://www.instagram.com/p/DUP-QbPE-K3/"},
   {name:"おおきや 大阪ソウルフード 粉と肉とだし",city:"つくば市",genre:"たこ焼き",address:"茨城県つくば市上横場２３６５−８",link:"https://www.instagram.com/p/DUNbnkgE2HV/"},
@@ -533,7 +560,7 @@ const DEFAULT_STORES = [
   {name:"おぼろ豆富・湯波専門店まめ乃家",city:"つくば市",genre:"定食",address:"茨城県つくば市手代木９６１−９",link:"https://www.instagram.com/p/DUu3Y49k4Am/"},
   {name:"峠のクマタコ",city:"潮来市",genre:"たこ焼き",address:"茨城県潮来市築地５３２",link:"https://www.instagram.com/p/DT4xGygkw0G/"},
   {name:"らぽっぽなめがたファーマーズヴィレッジ",city:"行方市",genre:"スイーツ",address:"茨城県行方市宇崎１５６１",link:"https://www.instagram.com/p/DT2LG06E5V9/"},
-  {name:"りんちゃんのおやつ",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市手代木２００５−３",link:"https://www.instagram.com/p/DTxDizDkwmB/"},
+  {name:"りゑちゃゑのおやつ",city:"つくば市",genre:"スイーツ",address:"茨城県つくば市手代木２００５−３",link:"https://www.instagram.com/p/DTxDizDkwmB/"},
   {name:"冨久長",city:"水戸市",genre:"和食",address:"茨城県水戸市城東２丁目６−１１",link:"https://www.instagram.com/p/DTv6HJXE7Zr/"},
   {name:"さんぴ",city:"つくばみらい市",genre:"海鮮",address:"茨城県つくばみらい市絹の台２丁目4−8",link:"https://www.instagram.com/p/DSPOV0rEyO5/"},
   {name:"ミオジェラート",city:"守谷市",genre:"アイスクリーム",address:"茨城県守谷市大柏１１２５−７",link:"https://www.instagram.com/p/DSMqUi-k_7t/"},
@@ -552,7 +579,7 @@ const DEFAULT_STORES = [
   {name:"納豆DOG",city:"笠間市",genre:"グルメ",address:"茨城県笠間市長兎路１０５１−３",link:"https://www.instagram.com/p/DSetZfPE8-u/"},
   {name:"はっこめ〜発酵とお米のお店",city:"つくば市",genre:"カフェ",address:"茨城県つくば市流星台１７−１ 1F",link:"https://www.instagram.com/p/DSdsdFIk18f/"},
   {name:"友部あんこう焼き",city:"笠間市",genre:"和菓子",address:"茨城県笠間市長兎路１０５１−３ 常磐自動車道下り線友部SA内",link:"https://www.instagram.com/p/DSbYQ6CkrVm/"},
-  {name:"大判焼き不動",city:"稲敷郡阿見町",genre:"和菓子",address:"茨城県稲敷郡阿見町吉原578-1",link:"https://www.instagram.com/p/DR8JKlFkxh8/"},
+  {name:"大判焼き不動",city:"稲敷郡阿見町",genre:"和菓子",address:"茨城県稲敷郡阿見町吉原578-1",link:"https://www.instagram.com/p/DR8JKlFkxh4/"},
   {name:"中華そば すずきや",city:"つくば市",genre:"ラーメン",address:"茨城県つくば市上横場2431-5",link:"https://www.instagram.com/p/DR5ocZmExL_/"},
   {name:"ミヤタクレープ",city:"土浦市",genre:"クレープ",address:"茨城県土浦市中荒川沖町２４−４５",link:"https://www.instagram.com/p/DR1fY2rE8S8/"},
   {name:"こころを米で結ぶ 結",city:"つくばみらい市",genre:"定食",address:"茨城県つくばみらい市富士見ヶ丘１丁目28番１",link:"https://www.instagram.com/p/DRy6GFuEz_D/"},
