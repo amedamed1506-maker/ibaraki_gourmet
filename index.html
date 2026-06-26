@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>è¨åã°ã«ã¡åºèæ¤ç´¢</title>
+  <title>茨城グルメ店舗検索</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -342,18 +342,18 @@
 <body>
 
 <header>
-  <div class="ig-icon">ð¸</div>
-  <h1>è¨åã°ã«ã¡åºèæ¤ç´¢</h1>
-  <p>è¨åçåã®ç¾å³ããã°ã«ã¡æå ±ãã¾ã¨ãã¦æ¤ç´¢</p>
+  <div class="ig-icon">📸</div>
+  <h1>茨城グルメ店舗検索</h1>
+  <p>茨城県内の美味しいグルメ情報をまとめて検索</p>
 </header>
 
 <div class="search-wrap">
   <div class="search-row">
-    <input type="text" id="q" placeholder="ð åºåã»ä½æã§æ¤ç´¢..." oninput="render()">
+    <input type="text" id="q" placeholder="🔍 店名・住所で検索..." oninput="render()">
     <select id="genreFilter" onchange="render()">
-      <option value="">ð½ ã¸ã£ã³ã« ãã¹ã¦</option>
+      <option value="">🍽 ジャンル すべて</option>
     </select>
-    <button class="btn-reset" onclick="resetFilters()">â ãªã»ãã</button>
+    <button class="btn-reset" onclick="resetFilters()">✕ リセット</button>
   </div>
 </div>
 
@@ -363,45 +363,45 @@
   <div class="result-info">
     <span id="count"></span>
     <div class="section-toggle">
-      <button class="btn-toggle" onclick="togglePanel('addPanel', this)">ï¼ åºèãè¿½å </button>
-      <button class="btn-toggle" onclick="togglePanel('csvPanel', this)">ð CSV ã¤ã³ãã¼ã/ã¨ã¯ã¹ãã¼ã</button>
+      <button class="btn-toggle" onclick="togglePanel('addPanel', this)">＋ 店舗を追加</button>
+      <button class="btn-toggle" onclick="togglePanel('csvPanel', this)">📋 CSV インポート/エクスポート</button>
     </div>
   </div>
 
   <!-- ADD PANEL -->
   <div class="panel" id="addPanel">
-    <h3>ð æ°ããåºèãè¿½å </h3>
+    <h3>📝 新しい店舗を追加</h3>
     <div class="form-grid">
-      <input type="text" id="f_name" placeholder="åºå *">
-      <input type="text" id="f_city" placeholder="å¸çºæï¼ä¾ï¼æ°´æ¸å¸ï¼*">
-      <input type="text" id="f_genre" placeholder="ã¸ã£ã³ã«ï¼ä¾ï¼ã«ãã§ï¼*">
-      <input type="text" id="f_memo" placeholder="è©³ç´°ï¼ä¾ï¼ãã³ã³ãã»ã¤ãéººï¼">
-      <input type="text" id="f_address" placeholder="ä½æ" class="form-full">
-      <input type="text" id="f_account" placeholder="æç¨¿èã¢ã«ã¦ã³ãï¼çç¥æï¼ibaraki_yossyï¼">
-      <input type="url" id="f_link" placeholder="Instagramãªã³ã¯">
+      <input type="text" id="f_name" placeholder="店名 *">
+      <input type="text" id="f_city" placeholder="市町村（例：水戸市）*">
+      <input type="text" id="f_genre" placeholder="ジャンル（例：カフェ）*">
+      <input type="text" id="f_memo" placeholder="詳細（例：トンコツ・つけ麺）">
+      <input type="text" id="f_address" placeholder="住所" class="form-full">
+      <input type="text" id="f_account" placeholder="投稿者アカウント（省略時：ibaraki_yossy）">
+      <input type="url" id="f_link" placeholder="Instagramリンク">
     </div>
-    <button class="btn-add" onclick="addStore()">è¿½å ãã</button>
+    <button class="btn-add" onclick="addStore()">追加する</button>
   </div>
 
   <!-- CSV PANEL -->
   <div class="panel" id="csvPanel">
-    <h3>ð CSV ã¤ã³ãã¼ã / ã¨ã¯ã¹ãã¼ã</h3>
-    <p class="csv-format">å½¢å¼ï¼åºå,å¸çºæ,ã¸ã£ã³ã«,è©³ç´°,ä½æ,æç¨¿è,Instagramãªã³ã¯ï¼1è¡ç®ã¯ãããã¼è¡ï¼</p>
+    <h3>📋 CSV インポート / エクスポート</h3>
+    <p class="csv-format">形式：店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク（1行目はヘッダー行）</p>
     <div class="csv-area">
-      <textarea id="csvText" placeholder="CSVãã¼ã¿ãããã«è²¼ãä»ã..."></textarea>
+      <textarea id="csvText" placeholder="CSVデータをここに貼り付け..."></textarea>
     </div>
     <div class="csv-btns">
-      <button class="btn-csv primary" onclick="importCSV()">ð¥ CSVãã¤ã³ãã¼ã</button>
-      <button class="btn-csv" onclick="exportCSV()">ð¤ CSVãã¨ã¯ã¹ãã¼ã</button>
-      <button class="btn-csv" onclick="showCSVTemplate()">ð ãã³ãã¬ã¼ããè¡¨ç¤º</button>
+      <button class="btn-csv primary" onclick="importCSV()">📥 CSVをインポート</button>
+      <button class="btn-csv" onclick="exportCSV()">📤 CSVをエクスポート</button>
+      <button class="btn-csv" onclick="showCSVTemplate()">📄 テンプレートを表示</button>
     </div>
   </div>
 
   <div class="grid" id="grid"></div>
   <div class="no-results" id="noResults" style="display:none">
-    <div class="emoji">ð</div>
-    <div>è©²å½ããåºèãè¦ã¤ããã¾ããã§ãã</div>
-    <div style="font-size:0.82rem;margin-top:6px;color:#bbb">æ¤ç´¢æ¡ä»¶ãå¤ãã¦ã¿ã¦ãã ãã</div>
+    <div class="emoji">🔍</div>
+    <div>該当する店舗が見つかりませんでした</div>
+    <div style="font-size:0.82rem;margin-top:6px;color:#bbb">検索条件を変えてみてください</div>
   </div>
 </div>
 
@@ -409,7 +409,7 @@
 
 <script>
 // =====================================================
-// åæãã¼ã¿ï¼ibaraki_yossyã¢ã«ã¦ã³ãã®æç¨¿ããåéï¼
+// 初期データ（ibaraki_yossyアカウントの投稿より収集）
 // =====================================================
 const DEFAULT_STORES = [
   {
@@ -902,7 +902,7 @@ const DEFAULT_STORES = [
 ];
 
 // =====================================================
-// ãã¼ã¿ç®¡çï¼localStorageã§æ°¸ç¶åï¼
+// データ管理（localStorageで永続化）
 // =====================================================
 function loadStores() {
   try {
@@ -923,14 +923,14 @@ let stores = loadStores();
 let selectedCities = new Set();
 
 // =====================================================
-// ãã£ã«ã¿ç¨ãªãã·ã§ã³çæ
+// フィルタ用オプション生成
 // =====================================================
 function buildFilters() {
   const genres = [...new Set(stores.map(s => s.genre))].sort();
 
   const genreEl = document.getElementById('genreFilter');
   const curGenre = genreEl.value;
-  genreEl.innerHTML = '<option value="">ð½ ã¸ã£ã³ã« ãã¹ã¦</option>';
+  genreEl.innerHTML = '<option value="">🍽 ジャンル すべて</option>';
   genres.forEach(g => {
     const o = document.createElement('option');
     o.value = g; o.textContent = g;
@@ -940,7 +940,7 @@ function buildFilters() {
 }
 
 // =====================================================
-// ã«ã¼ãæç»
+// カード描画
 // =====================================================
 function render() {
   const q = document.getElementById('q').value.trim().toLowerCase();
@@ -955,9 +955,9 @@ function render() {
   });
 
   document.getElementById('count').innerHTML =
-    `å¨ <b>${stores.length}</b> ä»¶ä¸­ <b>${filtered.length}</b> ä»¶è¡¨ç¤º`;
+    `全 <b>${stores.length}</b> 件中 <b>${filtered.length}</b> 件表示`;
 
-  // ãããã®ã¢ã¯ãã£ãç¶æãåæ
+  // チップのアクティブ状態を同期
   document.querySelectorAll('.city-chip').forEach(b => {
     const cityName = b.dataset.city;
     if (selectedCities.has(cityName)) b.classList.add('active');
@@ -978,20 +978,20 @@ function render() {
     <div class="card">
       <div class="card-top">
         <div class="card-name">${esc(s.name)}</div>
-        <span class="card-genre">ð´ ${esc(s.memo || s.genre)}</span>
+        <span class="card-genre">🍴 ${esc(s.memo || s.genre)}</span>
       </div>
       <div class="card-body">
         <div class="card-row">
-          <span class="icon">ð</span>
+          <span class="icon">📍</span>
           <span class="text"><span class="city-tag">${esc(s.city)}</span></span>
         </div>
         ${s.address ? `
         <div class="card-row">
-          <span class="icon">ð </span>
+          <span class="icon">🏠</span>
           <span class="text">${esc(s.address)}</span>
         </div>` : ''}
         <a class="card-link" href="${esc(s.link)}" target="_blank" rel="noopener">
-          ð· Instagramã§æç¨¿ãè¦ã
+          📷 Instagramで投稿を見る
         </a>
         <div style="text-align:center;font-size:0.78rem;color:#aaa;margin-top:4px;">@${esc(s.account || 'ibaraki_yossy')}</div>
       </div>
@@ -1005,7 +1005,7 @@ function esc(str) {
 }
 
 // =====================================================
-// ãªã»ãã
+// リセット
 // =====================================================
 function resetFilters() {
   document.getElementById('q').value = '';
@@ -1015,12 +1015,12 @@ function resetFilters() {
 }
 
 // =====================================================
-// ããã«ãã°ã«
+// パネルトグル
 // =====================================================
 function togglePanel(id, btn) {
   const panel = document.getElementById(id);
   const isOpen = panel.classList.contains('open');
-  // å¨ããã«éãã
+  // 全パネル閉じる
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('open'));
   document.querySelectorAll('.btn-toggle').forEach(b => b.classList.remove('active'));
   if (!isOpen) {
@@ -1030,7 +1030,7 @@ function togglePanel(id, btn) {
 }
 
 // =====================================================
-// åºèè¿½å 
+// 店舗追加
 // =====================================================
 function addStore() {
   const name = document.getElementById('f_name').value.trim();
@@ -1042,7 +1042,7 @@ function addStore() {
   const link = document.getElementById('f_link').value.trim();
 
   if (!name || !city || !genre) {
-    showToast('â  åºåã»å¸çºæã»ã¸ã£ã³ã«ã¯å¿é ã§ã');
+    showToast('⚠ 店名・市町村・ジャンルは必須です');
     return;
   }
 
@@ -1052,24 +1052,24 @@ function addStore() {
   buildCityChips();
   render();
 
-  // ãã©ã¼ã ãªã»ãã
+  // フォームリセット
   ['f_name','f_city','f_genre','f_memo','f_address','f_account','f_link'].forEach(id => {
     document.getElementById(id).value = '';
   });
 
-  showToast(`â ã${name}ããè¿½å ãã¾ãã`);
+  showToast(`✅ 「${name}」を追加しました`);
 }
 
 // =====================================================
-// CSVã¤ã³ãã¼ã
+// CSVインポート
 // =====================================================
 function importCSV() {
   const raw = document.getElementById('csvText').value.trim();
-  if (!raw) { showToast('â  CSVãã¼ã¿ãããã¾ãã'); return; }
+  if (!raw) { showToast('⚠ CSVデータがありません'); return; }
 
   const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
-  // 1è¡ç®ããããã¼ããã§ãã¯
-  const start = lines[0].toLowerCase().includes('åºå') || lines[0].toLowerCase().includes('name') ? 1 : 0;
+  // 1行目がヘッダーかチェック
+  const start = lines[0].toLowerCase().includes('店名') || lines[0].toLowerCase().includes('name') ? 1 : 0;
 
   let added = 0;
   for (let i = start; i < lines.length; i++) {
@@ -1087,21 +1087,21 @@ function importCSV() {
     added++;
   }
 
-  if (added === 0) { showToast('â  è¿½å ã§ãããã¼ã¿ãããã¾ããã§ãã'); return; }
+  if (added === 0) { showToast('⚠ 追加できるデータがありませんでした'); return; }
 
   saveStores(stores);
   buildFilters();
   buildCityChips();
   render();
   document.getElementById('csvText').value = '';
-  showToast(`â ${added}ä»¶è¿½å ãã¾ãã`);
+  showToast(`✅ ${added}件追加しました`);
 }
 
 // =====================================================
-// CSVã¨ã¯ã¹ãã¼ã
+// CSVエクスポート
 // =====================================================
 function exportCSV() {
-  const header = 'åºå,å¸çºæ,ã¸ã£ã³ã«,è©³ç´°,ä½æ,æç¨¿è,Instagramãªã³ã¯';
+  const header = '店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク';
   const rows = stores.map(s =>
     [s.name, s.city, s.genre, s.memo || '', s.address || '', s.account || 'ibaraki_yossy', s.link || ''].map(v => `"${v}"`).join(',')
   );
@@ -1113,20 +1113,20 @@ function exportCSV() {
   a.download = 'ibaraki_yossy_stores.csv';
   a.click();
   URL.revokeObjectURL(url);
-  showToast('ð¤ CSVããã¦ã³ã­ã¼ããã¾ãã');
+  showToast('📤 CSVをダウンロードしました');
 }
 
-// ãã³ãã¬ã¼ãè¡¨ç¤º
+// テンプレート表示
 function showCSVTemplate() {
   document.getElementById('csvText').value =
-`åºå,å¸çºæ,ã¸ã£ã³ã«,è©³ç´°,ä½æ,æç¨¿è,Instagramãªã³ã¯
-ä¾ï¼éººã¨é«,æ°´æ¸å¸,ã©ã¼ã¡ã³,ãã³ã³ã,è¨åçæ°´æ¸å¸ãã,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
-ä¾ï¼ä¸æ¥æ,ã²ãã¡ãªãå¸,ã«ãã§,,è¨åçã²ãã¡ãªãå¸ãã,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
-  showToast('ð ãã³ãã¬ã¼ããè¡¨ç¤ºãã¾ãã');
+`店名,市町村,ジャンル,詳細,住所,投稿者,Instagramリンク
+例：麺と雫,水戸市,ラーメン,トンコツ,茨城県水戸市〇〇,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/C37OM1DSlXH/
+例：三日月,ひたちなか市,カフェ,,茨城県ひたちなか市〇〇,ibaraki_yossy,https://www.instagram.com/ibaraki_yossy/reel/DBgDFMbOiXO/`;
+  showToast('📄 テンプレートを表示しました');
 }
 
 // =====================================================
-// ãã¼ã¹ãéç¥
+// トースト通知
 // =====================================================
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -1136,10 +1136,10 @@ function showToast(msg) {
 }
 
 // =====================================================
-// å¸çºæã¯ã¤ãã¯ãã£ã«ã¿ã¼ããã
+// 市町村クイックフィルターチップ
 // =====================================================
 function buildCityChips() {
-  const priority = ['çä¹å¸', 'åæµ¦å¸', 'ã¤ãã°å¸'];
+  const priority = ['牛久市', '土浦市', 'つくば市'];
   const others = [...new Set(stores.map(s => s.city))]
     .filter(c => !priority.includes(c)).sort();
   const cities = [...priority, ...others];
@@ -1166,7 +1166,7 @@ function quickCity(city, btn) {
 }
 
 // =====================================================
-// åæå
+// 初期化
 // =====================================================
 buildFilters();
 buildCityChips();
