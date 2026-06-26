@@ -904,10 +904,23 @@ const DEFAULT_STORES = [
 // =====================================================
 // データ管理（localStorageで永続化）
 // =====================================================
+const DATA_VERSION = 'v20260626';
+
 function loadStores() {
   try {
+    const savedVersion = localStorage.getItem('ibaraki_stores_version');
     const saved = localStorage.getItem('ibaraki_stores');
-    return saved ? JSON.parse(saved) : DEFAULT_STORES;
+    // バージョンが一致しない場合はlocalStorageをクリアしてDEFAULT_STORESを使用
+    if (savedVersion !== DATA_VERSION || !saved) {
+      localStorage.removeItem('ibaraki_stores');
+      localStorage.setItem('ibaraki_stores_version', DATA_VERSION);
+      return DEFAULT_STORES;
+    }
+    const parsed = JSON.parse(saved);
+    // ユーザー追加分のみ保持（DEFAULT_STORESにないもの）
+    const defaultLinks = new Set(DEFAULT_STORES.map(s => s.link));
+    const userAdded = parsed.filter(s => !defaultLinks.has(s.link));
+    return userAdded.length > 0 ? [...DEFAULT_STORES, ...userAdded] : DEFAULT_STORES;
   } catch(e) {
     return DEFAULT_STORES;
   }
